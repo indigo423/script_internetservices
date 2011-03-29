@@ -498,7 +498,7 @@
 		</dict>
 		<dict>
 			<key>Bounds</key>
-			<string>{{33.9921, 374.245}, {128.48, 37.1921}}</string>
+			<string>{{33.9921, 396.78}, {128.48, 37.1921}}</string>
 			<key>Class</key>
 			<string>ShapedGraphic</string>
 			<key>FontInfo</key>
@@ -700,7 +700,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2011-03-29 11:37:54 +0200</string>
+	<string>2011-03-29 14:05:27 +0200</string>
 	<key>Modifier</key>
 	<string>Ronny Trommer</string>
 	<key>NotesVisible</key>
