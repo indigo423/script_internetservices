@@ -1,0 +1,233 @@
+%------------------------------------------------------------------------------
+\section{Einführung Linux}
+%------------------------------------------------------------------------------
+Der Laboraufbau erfordert Kenntnisse im Umgang mit dem Betriebssystem Linux. Im
+Folgenden Abschnitt werden einige grundlegende Kommandos beschrieben die für die
+erfolgreiche Durchführung des Laborversuchs hilfreich sind. Im Labor wird die
+Distribution "`Ubuntu Server"' verwendet. Die hier beschriebene Einführung hat
+keinen Anspruch auf Vollständigkeit.
+
+%------------------------------------------------------------------------------
+\subsection{System Kommandos}
+%------------------------------------------------------------------------------
+Für den Laboraufbau sind die folgenden Kommandos zur Fehlerdiagnose und
+Überprüfung hilfreich.
+
+Anzeigen der ausführlichen Hilfe eines Programms
+\begin{lstlisting}
+man <programm> 
+\end{lstlisting}
+
+Anzeigen der kurzen Hilfe eines Programms
+\begin{lstlisting}
+<programm> -h | --help
+\end{lstlisting}
+
+Anzeige aller laufenden Systemprozesse inklusive Benutzer, CPU, Memory und
+Kommando
+\begin{lstlisting}
+ps aux 
+\end{lstlisting}
+
+Auslastung des Systems anzeigen
+\begin{lstlisting}
+top
+\end{lstlisting}
+
+Anzeige der aktuellen Netzwerkkonfiguration optional mit interface name
+$[$ifname$]$ (e.g. eth0)
+\begin{lstlisting}
+ifconfig [ifname]
+\end{lstlisting}
+
+Anzeige der lokalen Routing einträge
+\begin{lstlisting}
+route -n
+\end{lstlisting}
+
+Testen der Layer-3 Verbindung
+\begin{lstlisting}
+ping <ip-adresse>
+\end{lstlisting}
+
+Testen der Namensauflösung
+\begin{lstlisting}
+nslookup <hostname>
+\end{lstlisting}
+
+Nachverfolgen wie die Namensauflösung auf dem System ausgeführt wird
+\begin{lstlisting}
+dig +trace <hostname>
+\end{lstlisting}
+
+Anfrage zur Namensauflösung an einen speziellen Nameserver
+\begin{lstlisting}
+dig @<namserver> <hostname> 
+\end{lstlisting}
+
+Anzeige welche Serverdienste aktuell auf TCP Ports lauschen
+\begin{lstlisting}
+netstat -lnpt 
+\end{lstlisting}
+
+Anzeige welche Serverdienste aktuell auf UDP Ports lauschen
+\begin{lstlisting}
+netstat -lnpu 
+\end{lstlisting}
+
+Anzeige der bestehenen Netzwerkverbindungen auf einem Server
+\begin{lstlisting}
+netstat -an | grep EST 
+\end{lstlisting}
+
+Aufzeichnen des Netzwerkverkehrs auf einem bestimmten Netzwerkinterface
+\begin{lstlisting}
+tcpdump -i [interface] -w [file]
+\end{lstlisting}
+
+Verfolgen einer Router im Netzwerk
+\begin{lstlisting}
+traceroute [ip-adresse | hostname] 
+\end{lstlisting}
+
+Prüfen welche Ports auf einem Netzwerkserver erreichbar sind
+\begin{lstlisting}
+nmap 
+\end{lstlisting}
+
+Serverdienste für den Systemstart in Standardrunlevel hinzufügen
+\begin{lstlisting}
+update-rc.d <service> defaults 
+\end{lstlisting}
+
+Serverdienste für den Systemstart entfernen
+\begin{lstlisting}
+update-rc.d [-f] <service> remove
+\end{lstlisting}
+
+Diverse Editoren
+\begin{lstlisting}
+vi
+vim
+nano
+pico
+\end{lstlisting}
+
+Kennwort des aktuell angemeldeten Benutzers ändern
+\begin{lstlisting}
+passwd
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection{Verzeichnisse und Konfigurationsdateien}
+%------------------------------------------------------------------------------
+Für den Laborversuch sind die folgenden Verzeichnisse relevant. Die
+Verzeichnisse können bei unterschiedlichen Linux-Distributionen abweichen.
+
+Konfigurationsdateien für das System selbst und für Serverdienste
+\begin{lstlisting}
+/etc
+\end{lstlisting}
+
+Startskripte für Serverdienste
+\begin{lstlisting}
+/etc/init.d
+\end{lstlisting}
+
+Konfigurationsdateien für Netzwerkschnittstellen\label{ref:appendix_interfaces}
+\begin{lstlisting}
+/etc/network
+\end{lstlisting}
+
+Web-Root-Verzeichnis für den Apache2 Webserver
+\begin{lstlisting}
+/var/www
+\end{lstlisting}
+
+Konfigurationsdateien für den Nameserver BIND
+\begin{lstlisting}
+/etc/bind
+\end{lstlisting}
+
+Konfigurationsdateien für Postfix Mailserver
+\begin{lstlisting}
+/etc/postfix
+\end{lstlisting}
+
+Konfigurationsdateien für Apache2 Webserver
+\begin{lstlisting}
+/etc/apache2
+\end{lstlisting}
+
+Benutzer home-Verzeichnisse
+\begin{lstlisting}
+/home
+\end{lstlisting}
+
+Konfiguration zur lokalen DNS-Auflösung
+\begin{lstlisting}
+/etc/resolv.conf
+\end{lstlisting}
+
+Hostname des Servers
+\begin{lstlisting}
+/etc/hostname
+\end{lstlisting}
+
+Lokale Auflösung
+\begin{lstlisting}
+/etc/hosts
+\end{lstlisting}
+
+Lokale Benutzer und Grupppen
+\begin{lstlisting}
+/etc/passwd
+/etc/shadow
+/etc/group
+\end{lstlisting}
+
+
+%------------------------------------------------------------------------------
+\subsection{Kommandos zur Paketverwaltung}
+%------------------------------------------------------------------------------
+Ubuntu-Server verwendet zur Verwaltung von Anwendungen das Debian-basierende
+Paketverwaltungs-Tool Apt\footnote{Advanced Package Tool:
+\url{http://wiki.debian.org/Apt}}. Es wird dazu verwendet Programme zu
+installieren und zu verwalten. Es ist also nicht notwendig die Programme aus dem
+Quellcode zu kompilieren. Sie sehr bequem auf ein Repository von Anwendungen
+zugreifen und sehr einfach Programme installieren und entfernen. 
+
+Anwendungen werden in Paketen (Packages) bereitgestellt. Die Installation
+erfolgt aus Repositories von Archiv-Servern im Internet. Im Folgenden sind die wichtigsten
+Kommandos zur Paketverwaltung\footnote{Paketverwaltung mit aptitude:
+\url{http://wiki.ubuntuusers.de/aptitude}} kurz dargestellt:
+
+Aktualisierung der in den Repositories verfügbaren Paketlisten
+\begin{lstlisting}
+aptitude update
+\end{lstlisting}
+
+Suchen von Anwendungen
+\begin{lstlisting}
+aptitude search <search1> [search2] ...
+\end{lstlisting}
+
+Installation eines gewünschten Paketes
+\begin{lstlisting}
+aptitude install <paket1> [paket2] ...
+\end{lstlisting}
+
+Löscht das Paket, die Konfigurationsdateien bleiben erhalten
+\begin{lstlisting}
+aptitude remove <paket>
+\end{lstlisting}
+
+Löscht das Paket inklusive der Konfigurationsdateien
+\begin{lstlisting}
+aptitude purge <paket>
+\end{lstlisting}
+
+Anzeigen von zusätzlichen Paketinformationen
+\begin{lstlisting}
+aptitude show <paket>
+\end{lstlisting}

@@ -1,0 +1,30 @@
+%------------------------------------------------------------------------------
+\section{Konfiguration des Webservers}
+%------------------------------------------------------------------------------
+
+Melden Sie sich am Server \textbf{srv2-0} mit dem Benutzernamen \textbf{admin2}
+und dem Passwort \textbf{password2} an.
+
+Installieren Sie nun den Apache-Webserver:
+\begin{lstlisting}
+admin2@srv2-0:~$ sudo aptitude install apache2
+\end{lstlisting}
+
+Danach erzeugen wir eine einfache HTML-Datei.
+\begin{lstlisting}
+admin2@srv2-0:~$ sudo vi /var/www/index.html
+\end{lstlisting}
+Natürlich sollten hier auch die Angaben für Ihren Arbeitsplatz gemacht werden. Hier wird wieder exemplarisch 
+der Inhalt für TK02 wiedergegeben:
+\begin{lstlisting}
+<html>
+  <head>
+    <title>beta.tklabor.site</title>
+  </head>  
+  <body>
+    <h1>beta.tklabor.site</h1>
+  </body>
+</html>
+\end{lstlisting}
+Öffnen Sie einen Internet-Browser auf Ihrem Arbeitsplatz. Die Webseite sollte bereits über die IP-Adresse erreichbar sein. Geben Sie dazu
+beispielsweise für srv2-0 als URL \textbf{http://192.168.1.3/} an.

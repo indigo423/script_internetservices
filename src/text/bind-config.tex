@@ -1,0 +1,114 @@
+%------------------------------------------------------------------------------
+\section{DNS-Server mit BIND}
+%------------------------------------------------------------------------------
+Im Folgenden wird nun der Server \textbf{srv1} als Nameserver konfiguriert. Hier
+wird wieder exemplarisch die Konfiguration von \textbf{srv1-0} wiedergegeben.
+Die für Sie benötigten Werte entnehmen Sie bitte aus der Tabelle im Anhang.
+Melden Sie sich wieder am Server \textbf{srv1} mit den bekannten Zugangsdaten
+an. Danach wird nun die Software \textbf{bind} installiert.
+
+\begin{lstlisting}
+admin1@srv1-0$ sudo aptitude install bind9
+\end{lstlisting}
+
+Nach der Installation können wir nun die DNS-Zone konfigurieren:
+\begin{lstlisting}
+admin1@srv1-0$ sudo vi /etc/bind/named.conf.options
+\end{lstlisting}
+Die Datei sollte folgenden Inhalt aufweisen:
+\begin{scriptsize}
+\begin{lstlisting}
+options {
+    directory "/var/cache/bind";
+
+    // If there is a firewall between you and nameservers you want
+    // to talk to, you may need to fix the firewall to allow multiple
+    // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+  
+    // If your ISP provided one or more IP addresses for stable 
+    // nameservers, you probably want to use them as forwarders.  
+    // Uncomment the following block, and insert the addresses replacing
+    // the all-0's placeholder.
+
+    forwarders {
+      192.168.1.1;
+    };
+
+    auth-nxdomain no;    # conform to RFC1035
+    listen-on-v6 { any; };
+};
+\end{lstlisting}
+\end{scriptsize}
+
+Damit werden Anfragen, die durch den lokalen Nameserver nicht auflösbar sind an den übergeordneten weitergegeben.
+
+Nun erzeugen wir unsere Zonen-Datei, also beispielsweise
+\textbf{/etc/bind/db.beta.tklabor.site}:
+\begin{lstlisting}
+admin1@srv-1$ sudo vi /etc/bind/db.beta.tklabor.site
+\end{lstlisting}
+Diese sollte dann folgenden Inhalt haben:
+\begin{lstlisting}
+$TTL 3600
+$ORIGIN beta.tklabor.site.
+;
+; forward lookup for beta.tklabor.site
+;
+@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
+                 100000000 15m 5m 30d 1h 
+               )
+     IN   NS   ns.beta.tklabor.site.
+
+ns   IN   A    192.168.1.1
+\end{lstlisting}
+\normalsize Diese Zonen-Datei muss nun noch in der Konfiguration inkludiert werden. Also editieren wir nun die Datei \textbf{/etc/bind/named.conf.local}:
+\begin{lstlisting}
+admin1@srv1$ sudo vi /etc/bind/named.conf.local
+\end{lstlisting}
+Diese sollte dann folgendermaßen aussehen:
+\begin{lstlisting}
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "tknet02.informatik.hs-fulda.de" IN {
+  type master;
+  file "/etc/bind/db.tknet02";
+  allow-transfer { none; };
+  notify no;
+};
+\end{lstlisting}
+Jetzt stoppen und starten wir den entsprechenden Dienst:
+\begin{lstlisting}
+admin1@srv1$ sudo service bind9 restart
+\end{lstlisting}
+
+In der Regel sollte es nun möglich sein den Nameservers der Domäne \\ \textbf{tknet02.informatik.hs-fulda.de} zu ermitteln.
+
+\begin{lstlisting}
+admin1@srv1:~$ dig ns tknet02.informatik.hs-fulda.de
+
+; <<>> DiG 9.7.1-P2 <<>> ns tknet02.informatik.hs-fulda.de
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 4257
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; QUESTION SECTION:
+;tknet02.informatik.hs-fulda.de.	IN	NS
+
+;; ANSWER SECTION:
+tknet02.informatik.hs-fulda.de.	3600 IN	NS	ns.tknet02.informatik.hs-fulda.de.
+
+;; ADDITIONAL SECTION:
+ns.tknet02.informatik.hs-fulda.de. 3600	IN A	10.174.26.202
+
+;; Query time: 16 msec
+;; SERVER: 10.174.26.126#53(10.174.26.126)
+;; WHEN: Thu Mar 10 09:43:44 2011
+;; MSG SIZE  rcvd: 81
+\end{lstlisting}

@@ -1,5 +1,6 @@
-
+%------------------------------------------------------------------------------
 \section{Vorbereitung}
+%------------------------------------------------------------------------------
 In dieser Übung soll das Zusammenspiel grundlegender Internetdienste veranschaulicht werden.
 Hierfür werden zwei virtuelle Maschinen benötigt, die im Folgenden erstellt
 werden. Die Speicherorte und Bezeichnung können Sie aus der Tabelle
@@ -9,7 +10,10 @@ werden. Die Speicherorte und Bezeichnung können Sie aus der Tabelle
 \textbf{\textit{Hinweis}}: Die Bezeichnung des Servers erfolgt nach dem
 Schema srv\{Nr\}-\{Subnetz-ID\}. Das Namensschema
 ist in Abbildung \ref{fig:chap-labdocu-netzplan} auf Seite
-\pageref{fig:chap-labdocu-netzplan} dargestellt.
+\pageref{fig:chap-labdocu-netzplan} dargestellt. Das Beispiel wird anhande des
+Servers srv1 mit der Subnetz-ID 0 beschrieben. Achten Sie bitte darauf, dass Sie
+die Konfiguration anhand des Namensschemas, wie sie in der Dokumentation
+angegeben ist, durchführen.
 
 \scriptsize
 \begin{table}[!h]
@@ -29,7 +33,9 @@ ist in Abbildung \ref{fig:chap-labdocu-netzplan} auf Seite
 \end{table}
 \normalsize 
 
+%------------------------------------------------------------------------------
 \subsection{Erzeugung der virtuellen Maschinen}
+%------------------------------------------------------------------------------
 Im Folgenden wird die Erzeugung einer virtuellen Maschine mit VMware-Workstation
 exemplarisch für \textbf{srv1-0} gezeigt. Verfahren Sie für die
 Maschine \textbf{srv2-0} analog. Öffnen Sie das Programm  \textbf{VMware
@@ -126,7 +132,6 @@ Verfahren Sie analog für den Server \textbf{srv2-0}.
 %------------------------------------------------------------------------------
 \subsection{Installation von Ubuntu}
 %------------------------------------------------------------------------------
-
 Nachdem Sie die virtuellen Maschinen gestartet haben, booten diese von dem zuvor angegebenen CD-Abbild. Wählen Sie zunächst die
 englische Sprache aus. 
 \begin{nofloat}{figure}
@@ -160,16 +165,8 @@ Die Zeitzone und Region für die Tasturbelegung wird \textbf{Europe} ausgewählt
 \includegraphics[width=0.75\textwidth]{screenshots/04_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
+\newpage
 Im nächsten Dialog als Land \textbf{Germany} auswählen.
-
-
-BREAK BREAK
-
-Als nächster Schritt wird die Tastatur-Belegung angegeben. Sie können diese automatisch erkennen lassen. Hierzu müssen Sie in
-den folgenden Dialogen verschiedene Tasten drücken.
-
-Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen eintragen. Geben Sie hier bitte \textbf{srv1} an.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -177,8 +174,8 @@ Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen eintra
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Die Zeitzone \textbf{Europe/Berlin} können Sie mit \textbf{Ja} bestätigen.
+Als nächster Schritt wird die Tastatur-Belegung angegeben. Sie können diese automatisch erkennen lassen. Hierzu müssen Sie in
+den folgenden Dialogen verschiedene Tasten drücken.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -186,16 +183,11 @@ Die Zeitzone \textbf{Europe/Berlin} können Sie mit \textbf{Ja} bestätigen.
 \end{center}
 \end{nofloat}
 
-Nun wird die Festplatte partitioniert. Wählen Sie hier den Eintrag \textbf{Manuell}.
-
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/07_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-\pagebreak
-Hier nun den Eintrag \textbf{SCSI3} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -203,24 +195,23 @@ Hier nun den Eintrag \textbf{SCSI3} wählen.
 \end{center}
 \end{nofloat}
 
-Erzeugen Sie eine neue leere Partitionstabelle.
-
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/09_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Wählen Sie hier nun den \textbf{FREIEN SPEICHER} aus.
+Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen
+eintragen. Geben Sie hier bitte \textbf{srv1-0} an.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/10_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Hier nun \textbf{Eine neue Partition erstellen} wählen.
+\newpage
+Nun wird die Festplatte partitioniert. Wählen Sie hier den Eintrag
+\textbf{Manual}.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -228,16 +219,15 @@ Hier nun \textbf{Eine neue Partition erstellen} wählen.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Als Größe geben Sie bitte hier \textbf{8.0 GB} an.
+Hier nun den Eintrag \textbf{SCSI3} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/12_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Hier nun \textbf{Primär} wählen.
+\newpage
+Erzeugen Sie eine neue leere Partitionstabelle.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -245,16 +235,15 @@ Hier nun \textbf{Primär} wählen.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Dieser Eintrag ist schon korrekt und kann mit \textbf{Anlegen der Partition beenden} bestätigt werden.
+Wählen Sie hier nun \textbf{FREE SPACE} aus.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/14_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Wählen Sie hier wiederum \textbf{FREIER SPEICHER}.
+\newpage
+Hier nun \textbf{Create a new partition} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -262,16 +251,16 @@ Wählen Sie hier wiederum \textbf{FREIER SPEICHER}.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Die Größenangabe kann hier ohne Änderungen übernommen werden.
+Die erste Partition wird zum Auslagern verwendet und wird mit 0,5 GB angegeben.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/16_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Wählen Sie hier wieder \textbf{Primär}.
+\newpage
+Die Partition wird als primäre Partition angelegt. Wählen Sie hier
+\textbf{Primary} aus.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -279,16 +268,17 @@ Wählen Sie hier wieder \textbf{Primär}.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Unter /textbf{Benutzen als:} wählen Sie nun \textbf{Auslagerungsspeicher (Swap)}.
+Im nächsten Schritt \textbf{Beginning} auswählen um die Partition am Anfang zu
+erstellen.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/18_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Hier wieder \textbf{Anlegen der Partition beenden} wählen.
+\newpage
+Oben als Partitionseinstellung den Typ \textbf{swap area} auswählen. Danach
+\textbf{Done setting up the partition} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -296,16 +286,16 @@ Hier wieder \textbf{Anlegen der Partition beenden} wählen.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Jetzt \textbf{Partitionierung beenden und Änderungen übernehmen} wählen.
+Als nächstes eine Partition für das System anlegen. Dazu wiederholt
+\textbf{FREE SPACE} auswählen.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/20_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-Hier \textbf{Ja} wählen.
+\newpage
+Wiederholt \textbf{Create a new partition} auswählen.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -313,19 +303,17 @@ Hier \textbf{Ja} wählen.
 \end{center}
 \end{nofloat}
 
-\pagebreak
-Jetzt kann ein Benutzer angelegt werden. Für \textbf{srv1} wählen wir den Namen \textbf{admin1}.
-
-Der Benutzername soll auch \textbf{admin1} lauten.
+Hier den restlichen Speicher auswählen und den vorgeschlagenen Wert übernehmen.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/22_ubuntu_install.png}
 \end{center}
 \end{nofloat}
+\newpage
 
-\pagebreak
-Als Passwort vergeben wir hier \textbf{password1}.
+Wiederholt die Partition vom Typ \textbf{Primary} anlegen.
+
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -333,17 +321,17 @@ Als Passwort vergeben wir hier \textbf{password1}.
 \end{center}
 \end{nofloat}
 
-Die Verschlüsselung aktivieren wir nicht.
+Als Partitionstyp wird der Vorschlag \textbf{Ext4} angegeben und mit
+\textbf{Done setting up the partition} beenden.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/24_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-\pagebreak
-Wir benötigen keinen HTTP-Proxy - daher einfach das Feld leer lassen
-und mit der Eingabe-Taste bestätigen.
+\newpage
+Die Partitionierung ist abgeschlossen und wird mit \textbf{Finish partitioning
+and write changes to disk} beendet.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -351,16 +339,14 @@ und mit der Eingabe-Taste bestätigen.
 \end{center}
 \end{nofloat}
 
-Wählen Sie hier \textbf{Keine automatischen Aktualisierungen}.
-
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/26_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-\pagebreak
-Bei der zu installierenden Software wählen wir nur \textbf{OpenSSH server}.
+\newpage
+Jetzt kann ein Benutzer angelegt werden. Für \textbf{srv1-0} wählen wir den
+Namen \textbf{admin1}.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -368,17 +354,13 @@ Bei der zu installierenden Software wählen wir nur \textbf{OpenSSH server}.
 \end{center}
 \end{nofloat}
 
-Nach der eigentlichen Installation wird nun der Bootloader installiert. Wählen Sie hier \textbf{Ja}.
-
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/28_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
-\pagebreak
-Die Installation ist abgeschlossen. Hier einfach \textbf{Weiter} wählen. Die virtuelle Maschine startet nun neu und
-bootet das neu installierte System.
+\newpage
+Als Passwort vergeben wir hier \textbf{password1}.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -386,13 +368,16 @@ bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
+Die Verschlüsselung aktivieren wir nicht.
 
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/30_ubuntu_install.png}
 \end{center}
 \end{nofloat}
-
+\newpage
+Wir benötigen keinen HTTP-Proxy - daher einfach das Feld leer lassen
+und mit der Eingabe-Taste bestätigen.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -400,11 +385,15 @@ bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
+Wählen Sie hier \textbf{No automatic updates}.
+
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/32_ubuntu_install.png}
 \end{center}
 \end{nofloat}
+\newpage
+Bei der zu installierenden Software wählen wir nur \textbf{OpenSSH server}.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -412,11 +401,17 @@ bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
+Nach der eigentlichen Installation wird nun der Bootloader GRUB installiert.
+Wählen Sie hier \textbf{Yes}.
+
 \begin{nofloat}{figure}
 \begin{center}
 \includegraphics[width=0.75\textwidth]{screenshots/34_ubuntu_install.png}
 \end{center}
 \end{nofloat}
+\newpage
+Die Installation ist abgeschlossen. Hier einfach \textbf{Continue} wählen. Die
+virtuelle Maschine startet nun neu und bootet das neu installierte System.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -424,34 +419,61 @@ bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
-\begin{nofloat}{figure}
-\begin{center}
-\includegraphics[width=0.75\textwidth]{screenshots/36_ubuntu_install.png}
-\end{center}
-\end{nofloat}
-
 Verfahren Sie analog für den Server \textbf{srv2-0}.
 
-\section{bind9, apache2 und postfix}
-
+%------------------------------------------------------------------------------
 \subsection{Grundkonfiguration}
-
-Im folgenden wird zunächst die Grundkonfiguration der Maschinen durchgeführt. Exemplarisch wird hier die Konfiguration für den Arbeitsplatz TK02 verwendet. Die für Sie
-und Ihren Arbeitsplatz richtigen Werte entnehmen Sie bitte dem Anhang.
-
-\subsubsection{Einrichtung IP-Adressen}
-
-Melden Sie sich bei der Maschine \textbf{srv1} mit dem Benutzername \textbf{admin1} und dem Passwort \textbf{password1} an. Danach 
-setzen Sie die korrekte IP-Adresse der virtuellen Maschine mit einem Texteditor Ihrer Wahl in der Datei \\
-\textbf{/etc/network/interfaces}. Die Konfiguration für Ihre Arbeitsplatzrechner entnehmen Sie der entsprechenden Tabelle im Anhang. Hier wird exemplarisch die Konfiguration
-von TK02 verwendet.
+%------------------------------------------------------------------------------
+Nach dem Neustart des virtuellen Servers kann man sich am System mit den zuvor
+angelegten Benutzern angemeldet werden. Um das System zu abzusichern, ist eine
+Anmeldung als Benutzer \textbf{root} nicht möglich. Um Administrationsaufgaben
+durchführen zu können, kann der Benutzer \textbf{admin1} Kommandos unter einem
+root-Kontext ausführen.
 
 \begin{lstlisting}
-admin1@srv1$ sudo vi /etc/network/interfaces
+sudo <command> [command parameter1] [command parameter2] 
 \end{lstlisting}
-Eventuell werden Sie erneut zur Eingabe des Passwortes aufgefordert. Die Datei sollte danach folgenden Inhalt haben:
 
+Bei größeren Änderungen kann es hilfreich sein, eine root-Shell zu öffnen. Alle
+Kommandos in dieser Shell werden unter root-Rechten ausgeführt, das Kommando
+\textbf{sudo} ist dann nicht mehr notwendig. Die root-Shell kann mit 
+\textbf{exit} beendet werden.
 
+\begin{lstlisting}
+sudo -s
+\end{lstlisting}
+
+Für die weitere Verwaltung ist es hilfreich das System zu aktualisieren.
+
+\begin{lstlisting}
+sudo aptitude update
+sudo aptitude safe-upgrade 
+\end{lstlisting}
+
+Im Anschluss sind alle Programme aktualisiert. Für die weitere Einrichtung und
+Fehlerdiagnose sind einige Programme und Tools hilfreich. Anbei eine kleine
+Auswahl die bei der Durchführung des Versuches hilfreich sein können.
+Als alternative Editoren zu \textbf{vi} können beispielsweise \textbf{nano}
+oder \textbf{pico} installiert werden.
+
+\begin{lstlisting}
+sudo aptitude install vim tcpdump nmap
+\end{lstlisting}
+
+\textbf{Hinweis:} Falls bei der Installation der Servername falsch gesetzt
+worden ist, kann dieser nachträglich in den folgenden Dateien geändert werden.
+
+%------------------------------------------------------------------------------
+\subsection{Netzwerkkonfiguration}
+%------------------------------------------------------------------------------
+Für den Laboraufbau ist es notwendig, dass die Netzwerkkonfiguration vom
+Benutzer vorgenommen wird. Dazu bearbeiten Sie die Datei /etc/network/interfaces
+wie folgt:
+\begin{lstlisting}
+admin1@srv1-0$ sudo vi /etc/network/interfaces
+\end{lstlisting}
+Sie werden eventuell erneut zur Eingabe des Passwortes aufgefordert. Die Datei
+sollte danach folgenden Inhalt haben:
 \begin{lstlisting}
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -463,32 +485,40 @@ iface lo inet loopback
 # The primary network interface
 auto eth0
 iface eth0 inet static
-  address 10.174.26.202
-  netmask 255.255.255.0
-  gateway 10.174.26.254
-  network 10.174.26.0
-  broadcast 10.174.26.255
+  address 192.168.1.2
+  netmask 255.255.255.240
+  gateway 192.168.1.1
+  network 192.168.1.0
+  broadcast 192.168.1.15
 \end{lstlisting}
-
-Jetzt sollte noch die Konfiguration der Namensauflösung in der Datei \\ \textbf{/etc/resolv.conf} angepasst werden. 
+Jetzt sollte noch die Konfiguration der Namensauflösung angepasst werden:
 \begin{lstlisting}
-admin1@srv1$ sudo vi /etc/resolv.conf
+admin1@srv1-0$ sudo vi /etc/resolv.conf
 \end{lstlisting}
-
 Diese Datei sollte danach folgenden Inhalt haben:
 \begin{lstlisting}
-nameserver 10.174.26.126
-domain tknet02.informatik.hs-fulda.de
-search tknet02.informatik.hs-fulda.de
+nameserver 192.168.1.1
+domain beta.tklabor.site
+search beta.tklabor.site
 \end{lstlisting}
+Starten Sie anschließend das System neu:
+\begin{lstlisting}
+admin1@srv1-0$ sudo reboot
+\end{lstlisting}
+Verfahren Sie analog für den Server \textbf{srv2-0}.
 
-\subsubsection{Update}
-Jetzt sollte das System auf den neusten Stand gebracht werden. Geben Sie dazu folgende Befehle ein und bestätigen eventuell auftretende Rückfragen:
-\begin{lstlisting}
-admin1@srv1$ sudo apt-get update
-admin1@srv1$ sudo apt-get upgrade
-\end{lstlisting}
-Starten Sie dann das System neu:
-\begin{lstlisting}
-admin1@srv1$ sudo init 6
-\end{lstlisting}
+%------------------------------------------------------------------------------
+\subsection{Funktionstest}
+%------------------------------------------------------------------------------
+Bevor die Installation der Serverdienste erfolgt, testen Sie die Konfiguration:
+\begin{enumerate}
+  \item Layer-3 Konnektivität zwischen den beiden Servern srv1-0 und srv2-0
+  \item Lokale Namensauflösung auf srv1-0 für den hostnamen
+  \textbf{srv1-0.beta.tklabor.site}.
+  \item Layer-3 Konnektivität auf den zentralen Router für den Internetzugang
+  \item Namensauflösung ins Internet und Layer-3 Konnektivität ins Internet
+  \item Führen Sie die Tests analog auf srv2 durch.
+\end{enumerate}
+
+Sind alle Tests erfolgreich, können Sie mit der weiteren Konfiguration
+fortfahren.
