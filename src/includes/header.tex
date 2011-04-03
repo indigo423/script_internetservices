@@ -1,0 +1,158 @@
+%
+% header.tex
+%
+\documentclass[%
+	pdftex,%			PDFTex verwenden
+	a4paper,%			A4 Papier
+	oneside,%			Einseitig
+	idxtotoc,%			Index ins Verzeichnis einfuegen
+	parskip,%			Europaeischer Satz mit abstand zwischen Absaetzen oder halfparskip
+	headsepline,%      	Linie nach Kopfzeile
+	footsepline,%       Linie vor Fusszeile
+	11pt%               Groessere Schrift, besser lesbar am Bildschrim
+]{scrartcl}
+
+\usepackage{a4wide}
+\usepackage[left=3.0cm, right=2.5cm, top=3.0cm, bottom=3.5cm]{geometry}
+
+\usepackage{nofloat}
+%
+% Paket fuer die Indexerstellung.
+%
+%\usepackage{makeidx}
+
+%\usepackage{setspace}
+
+
+%
+% Paket fuer Deutsche Trennungen, Anfuehrungsstriche und mehr...
+%
+\usepackage{german, ngerman}
+\usepackage[german]{babel}
+%
+%Eingabe von ‰,ˆ,¸ erlauben
+%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage[babel,german=quotes]{csquotes}
+
+    \usepackage{color}                                            %%
+    \usepackage{longtable}                                        %%
+    \usepackage{calc}                                             %%
+    \usepackage{multirow}                                         %%
+    \usepackage{hhline}                                           %%
+    \usepackage{ifthen}  
+
+%
+% Paket zum Erweitern der Tabelleneigenschaften
+%
+\usepackage{array}
+
+% 
+% Optisch schoenere Tabellen
+%
+\usepackage{booktabs}
+
+%
+% Farbige Tabellen und longtable + supertabular
+%
+\usepackage{colortbl}
+\usepackage{xcolor}
+
+%
+% Ermoeglicht 90° gedrehte Spaltenueberschriften
+%
+\usepackage{tabularx}
+%\usepackage{rotating}
+%\newcolumntype{R}[1]{%
+%  >{\begin{turn}{90}\begin{minipage}{#1}\scriptsize\raggedright\hspace{0pt}}l%
+%  <{\end{minipage}\end{turn}}%
+%}
+
+%
+% Schriftgroessen manipulieren
+%
+\usepackage{relsize}
+
+%
+% Strichvariationen bei Tabellen
+%
+%\usepackage{hhline}
+
+
+%
+% Paket um Grafiken einbetten zu koennen
+%
+\usepackage{graphicx}
+
+%
+% Zeilenumbruch bei Bildbeschreibungen.
+%
+\setcapindent{1em}
+
+%
+% Paket um Listings sauber zu formatieren.
+%
+\usepackage[savemem]{listings}
+\lstloadlanguages{TeX}
+
+\usepackage{color}
+\definecolor{nb}{gray}{.85}
+
+
+%
+% Fuer den Quellcode
+%
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, showstringspaces=false}
+\lstset{backgroundcolor=\color{nb}}
+\lstset{language=C++}
+
+
+%
+% mathematische symbole aus dem AMS Paket.
+%
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+%
+% Type 1 Fonts fuer bessere darstellung in PDF verwenden.
+%
+%\usepackage{mathptmx}           % Times + passende Mathefonts
+%\usepackage[scaled=.92]{helvet} % skalierte Helvetica als \sfdefault
+\usepackage{courier}            % Courier als \ttdefault
+
+%
+% Paket um Textteile drehen zu koennen
+%
+\usepackage{rotating}
+
+%
+% Package fuer Farben im PDF
+%
+\usepackage{color}
+
+%
+% Paket fuer Links innerhalb des PDF Dokuments
+%
+\definecolor{LinkColor}{rgb}{0,0,0}
+\usepackage[plainpages=false,hyperfootnotes=false]{hyperref}
+\hypersetup{colorlinks=true,%
+	linkcolor=LinkColor,%
+	citecolor=LinkColor,%
+	filecolor=LinkColor,%
+	menucolor=LinkColor,%
+	pagecolor=LinkColor,%
+	urlcolor=LinkColor}
+
+%
+% Index erzeugen
+%
+\makeindex
+
+%
+% EOF
+%

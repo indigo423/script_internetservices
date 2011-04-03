@@ -1,60 +1,26 @@
-\documentclass[a4paper,11pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{listings,color}
-\usepackage{url}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{color}
-\usepackage{colortbl}
-\usepackage{tabularx}
-\usepackage{tikz}
-\usepackage{float}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage[ngerman]{babel}
-
-\usepackage{colortbl}
-\usepackage{wrapfig}
-
-\pagestyle{empty}
-\setlength{\parindent}{0mm}
-
-\newenvironment{mylist}{ \nopagebreak\begin{list}%
-                           {(i)}%
-                           {\topsep0cm \parsep0cm \partopsep0cm \itemsep0cm} }%
-                       { \end{list} }
-
-\definecolor{hellgrau}{cmyk}{0, 0, 0, 0.117}
+%
+%
+% Hauptdatei
+%
+%
+\input{includes/header}
 
 \begin{document}
 
-\lstset{language=bash, basicstyle=\ttfamily\tiny, backgroundcolor=\color{hellgrau}}
+\input{includes/title.tex}
 
-%\def\loesung
-\textsc{Hochschule Fulda}{\small\hfill Einführung in Internetdienste}\\
-{\small Fachbereich Angewandte Informatik{\small\hfill SS 11}\\
-Dipl.-Inf. (HS) Ronny Trommer}\\
-
-\begin{center}
-{\Large\textbf{Lab Manual}}\\
-
-\medskip
-\end{center}
-
-\smallskip
-
-\newcommand{\half}{{\scriptstyle\frac{1}{2}}}
-\newcolumntype{G}{>{\columncolor[gray]{0.9}}r}
-
-\newcommand{\setK}{\mathbbm{K}}
-\newcommand{\setR}{\mathbbm{R}}
-\newcommand{\setZ}{\mathbbm{Z}}
 \tableofcontents
+\addcontentsline{toc}{section}{Inhaltsverzeichnis} 
+\newpage
 
-\pagebreak
+\input{text/intro.tex}
+\input{text/plan.tex}
+\input{text/create_vmware.tex}
+\input{text/ubuntu_install.tex}
 
-\input{text/labdocu.tex}
-\input{text/install_ubuntu.tex}
+\clearpage
+\begin{appendix}
+  \input{text/appendix.tex}
+\end{appendix}
 
 \end{document}

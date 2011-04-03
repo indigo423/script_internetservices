@@ -42,7 +42,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2011-03-31 19:56:16 +0200</string>
+	<string>2011-04-01 12:32:23 +0200</string>
 	<key>Modifier</key>
 	<string>Ronny Trommer</string>
 	<key>NotesVisible</key>
@@ -4928,7 +4928,7 @@ mail/web}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{373, 150.5}, {64, 13}}</string>
+					<string>{{291, 159}, {64, 13}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FitText</key>
@@ -5081,7 +5081,7 @@ mail/web}</string>
 					<key>Points</key>
 					<array>
 						<string>{366, 186.25}</string>
-						<string>{366, 150.5}</string>
+						<string>{366, 161.5}</string>
 					</array>
 					<key>Style</key>
 					<dict>
@@ -5101,7 +5101,7 @@ mail/web}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{347, 124.5}, {38, 26}}</string>
+					<string>{{347, 135.5}, {38, 26}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>ID</key>
@@ -5145,7 +5145,7 @@ mail/web}</string>
 					<array>
 						<dict>
 							<key>Bounds</key>
-							<string>{{324.5, 84}, {83, 48}}</string>
+							<string>{{324.5, 95}, {83, 48}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>FontInfo</key>
@@ -5203,7 +5203,7 @@ mail/web}</string>
 						</dict>
 						<dict>
 							<key>Bounds</key>
-							<string>{{347, 93}, {38, 30}}</string>
+							<string>{{347, 104}, {38, 30}}</string>
 							<key>Class</key>
 							<string>ShapedGraphic</string>
 							<key>ID</key>
@@ -5650,7 +5650,7 @@ mail/web}</string>
 				</dict>
 				<dict>
 					<key>Bounds</key>
-					<string>{{128, 74}, {483, 415}}</string>
+					<string>{{123, 88}, {488, 393}}</string>
 					<key>Class</key>
 					<string>ShapedGraphic</string>
 					<key>FontInfo</key>
