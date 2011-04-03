@@ -1,3 +1,128 @@
+
+\section{Vorbereitung}
+In dieser Übung soll das Zusammenspiel grundlegender Internetdienste veranschaulicht werden.
+Hierfür werden zwei virtuelle Maschinen benötigt, die im Folgenden erstellt
+werden. Die Speicherorte und Bezeichnung können Sie aus der Tabelle
+\ref{tab:install-location} entnehmen.
+\newline
+\newline
+\textbf{\textit{Hinweis}}: Die Bezeichnung des Servers erfolgt nach dem
+Schema srv\{Nr\}-\{Subnetz-ID\}. Das Namensschema
+ist in Abbildung \ref{fig:chap-labdocu-netzplan} auf Seite
+\pageref{fig:chap-labdocu-netzplan} dargestellt.
+
+\scriptsize
+\begin{table}[!h]
+  \centering
+	\begin{tabular}{l l l l l}
+		\hline
+		Name & Pfad & Hostname & Benutzername & Passwort \\
+		\hline
+		srv1-0 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv1-0 &
+		srv1-0 & admin1 & password1 \\
+		srv2-0 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv2-0 &
+		srv2-0 & admin2 & password2 \\
+		\hline
+	\end{tabular}
+	\caption{Pfade für die Installation und Einrichtung der virtuellen Maschinen}
+	\label{tab:install-location}
+\end{table}
+\normalsize 
+
+\subsection{Erzeugung der virtuellen Maschinen}
+Im Folgenden wird die Erzeugung einer virtuellen Maschine mit VMware-Workstation
+exemplarisch für \textbf{srv1-0} gezeigt. Verfahren Sie für die
+Maschine \textbf{srv2-0} analog. Öffnen Sie das Programm  \textbf{VMware
+Workstation} und wählen Sie \textbf{File$\rightarrow$New$\rightarrow$Virtual Machine} im Menü.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm01.png}
+\end{center}
+\end{nofloat}
+
+Im nun erscheinenden Dialog aktivieren Sie die Option \textbf{Typical}. Danach klicken Sie auf \textbf{Next} um zur nächsten Seite des Assistenten
+zu gelangen.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm02.png}
+\end{center}
+\end{nofloat}
+
+Hier muss die Option \textbf{I will install the operation system later} gewählt werden. Wieder geht es mit einem
+Klick auf \textbf{Next} zur nächsten Seite.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm03.png}
+\end{center}
+\end{nofloat}
+
+Wählen Sie nun als Betriebssystem \textbf{Linux} und als Version \textbf{Ubuntu} und bestätigen Sie diese
+Eingaben mit einem Klick auf \textbf{Next}.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm04.png}
+\end{center}
+\end{nofloat}
+
+Geben Sie nun den Namen \textbf{srv1-0} und als Speicherort den Pfad \\
+\textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv1-0}
+an.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm05.png}
+\end{center}
+\end{nofloat}
+
+Für die Größe der virtuellen Festplatte wählen Sie bitte \textbf{8} Gigabyte.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm06.png}
+\end{center}
+\end{nofloat}
+
+Der folgende Dialog wird jetzt mit \textbf{Finish} geschlossen.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm07.png}
+\end{center}
+\end{nofloat}
+
+Als nächsten müssen noch einige Einstellungen der virtuellen Maschine bearbeitet werden. Hierzu wählen Sie
+\textbf{Edit virtual machine settings}.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm08.png}
+\end{center}
+\end{nofloat}
+
+Wählen Sie nun den Eintrag \textbf{CD/DVD} und aktivieren Sie die Option \textbf{Use ISO image file}. Klicken Sie auf \textbf{Browse}
+und wählen Sie die Datei \\ \textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$ubuntu-10.10-server-i386.iso}.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm09.png}
+\end{center}
+\end{nofloat}
+
+Danach wählen Sie den Eintrag \textbf{Network adapter} und aktivieren die Option
+\textbf{Bridged}.
+
+\begin{nofloat}{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{screenshots/vm10.png}
+\end{center}
+\end{nofloat}
+
+Verfahren Sie analog für den Server \textbf{srv2-0}.
+
 %------------------------------------------------------------------------------
 \subsection{Installation von Ubuntu}
 %------------------------------------------------------------------------------
@@ -6,7 +131,7 @@ Nachdem Sie die virtuellen Maschinen gestartet haben, booten diese von dem zuvor
 englische Sprache aus. 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.70\textwidth]{screenshots/01_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/01_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -15,7 +140,7 @@ Eingabe-Taste bestätigen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/02_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/02_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -24,7 +149,7 @@ Sprache \textbf{English} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/03_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/03_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -32,7 +157,7 @@ Die Zeitzone und Region für die Tasturbelegung wird \textbf{Europe} ausgewählt
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/04_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/04_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -48,7 +173,7 @@ Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen eintra
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/05_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/05_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -57,7 +182,7 @@ Die Zeitzone \textbf{Europe/Berlin} können Sie mit \textbf{Ja} bestätigen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/06_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/06_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -65,7 +190,7 @@ Nun wird die Festplatte partitioniert. Wählen Sie hier den Eintrag \textbf{Manu
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/07_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/07_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -74,7 +199,7 @@ Hier nun den Eintrag \textbf{SCSI3} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/08_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/08_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -82,7 +207,7 @@ Erzeugen Sie eine neue leere Partitionstabelle.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/09_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/09_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -91,7 +216,7 @@ Wählen Sie hier nun den \textbf{FREIEN SPEICHER} aus.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/10_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/10_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -99,7 +224,7 @@ Hier nun \textbf{Eine neue Partition erstellen} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/11_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/11_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -108,7 +233,7 @@ Als Größe geben Sie bitte hier \textbf{8.0 GB} an.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/12_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/12_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -116,7 +241,7 @@ Hier nun \textbf{Primär} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/13_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/13_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -125,7 +250,7 @@ Dieser Eintrag ist schon korrekt und kann mit \textbf{Anlegen der Partition been
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/14_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/14_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -133,7 +258,7 @@ Wählen Sie hier wiederum \textbf{FREIER SPEICHER}.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/15_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/15_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -142,7 +267,7 @@ Die Größenangabe kann hier ohne Änderungen übernommen werden.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/16_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/16_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -150,7 +275,7 @@ Wählen Sie hier wieder \textbf{Primär}.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/17_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/17_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -159,7 +284,7 @@ Unter /textbf{Benutzen als:} wählen Sie nun \textbf{Auslagerungsspeicher (Swap)
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/18_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/18_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -167,7 +292,7 @@ Hier wieder \textbf{Anlegen der Partition beenden} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/19_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/19_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -176,7 +301,7 @@ Jetzt \textbf{Partitionierung beenden und Änderungen übernehmen} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/20_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/20_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -184,7 +309,7 @@ Hier \textbf{Ja} wählen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/21_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/21_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -195,7 +320,7 @@ Der Benutzername soll auch \textbf{admin1} lauten.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/22_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/22_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -204,7 +329,7 @@ Als Passwort vergeben wir hier \textbf{password1}.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/23_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/23_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -212,7 +337,7 @@ Die Verschlüsselung aktivieren wir nicht.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/24_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/24_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -222,7 +347,7 @@ und mit der Eingabe-Taste bestätigen.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/25_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/25_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -230,7 +355,7 @@ Wählen Sie hier \textbf{Keine automatischen Aktualisierungen}.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/26_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/26_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -239,7 +364,7 @@ Bei der zu installierenden Software wählen wir nur \textbf{OpenSSH server}.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/27_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/27_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -247,7 +372,7 @@ Nach der eigentlichen Installation wird nun der Bootloader installiert. Wählen 
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/28_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/28_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
@@ -257,61 +382,55 @@ bootet das neu installierte System.
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/29_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/29_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/30_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/30_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/31_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/31_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/32_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/32_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/33_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/33_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/34_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/34_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/35_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/35_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
 \begin{nofloat}{figure}
 \begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/36_ubuntu_install.png}
+\includegraphics[width=0.75\textwidth]{screenshots/36_ubuntu_install.png}
 \end{center}
 \end{nofloat}
 
-\begin{nofloat}{figure}
-\begin{center}
-\includegraphics[width=0.85\textwidth]{screenshots/37_ubuntu_install.png}
-\end{center}
-\end{nofloat}
-
-Verfahren Sie analog für den Server \textbf{srv2}.
+Verfahren Sie analog für den Server \textbf{srv2-0}.
 
 \section{bind9, apache2 und postfix}
 
