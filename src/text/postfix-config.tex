@@ -1,0 +1,128 @@
+%------------------------------------------------------------------------------\
+\section{Konfiguration des Mailservers mit Postfix}
+%------------------------------------------------------------------------------
+
+Melden Sie sich am Server \textbf{srv2-0} mit den bekannten Zugangsdaten an. 
+
+Installieren Sie nun den Postfix-Mailserver:
+\begin{lstlisting}
+admin2@srv2-0:~$ sudo aptitude install postfix
+\end{lstlisting}
+Im Installationsverlauf wählen Sie \textbf{Internet Site} und als Mailname \textbf{mail}. Danach erfolgt die weitere Konfiguration 
+des Servers. Editieren Sie dazu die Datei \textbf{/etc/postfix/main.cf}.
+
+\begin{lstlisting}
+admin2@srv2-0:~$ sudo vi /etc/postfix/main.cf
+\end{lstlisting}
+Folgende Einträge sollten beispielsweise für TK02 wie folgt angepasst werden:
+\begin{lstlisting}
+myhostname = mail.beta.tklabor.site
+mydestination = beta.tklabor.site, 
+                mail.beta.tklabor.site, 
+                localhost.beta.tklabor.site, localhost
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.174.26.0/24
+\end{lstlisting}
+Danach wird der Dienst neu gestartet.
+\begin{lstlisting}
+admin1@srv1-0$ sudo service postfix restart
+\end{lstlisting}
+Damit ist die Konfiguration des Mailservers abgeschlossen, allerdings können keinerlei E-Mails zugestellt werden, da die so genannten MX-Records im Nameserver noch fehlen.
+
+%------------------------------------------------------------------------------
+\subsection{Nameserver-Einträge für den Mailserver}
+%------------------------------------------------------------------------------
+Melden Sie 
+sich wieder am Server \textbf{srv1} mit den bekannten Zugangsdaten an. Editieren Sie die Zonen-Datei \textbf{/etc/bind/db.tknet02}.
+\begin{lstlisting}
+admin1@srv1-0$ sudo vi /etc/bind/db.tknet02
+\end{lstlisting}
+Die Datei sollte nun beispielsweise für TK02 folgenden Inhalt aufweisen:
+\scriptsize\begin{lstlisting}
+$TTL 3600
+$ORIGIN beta.tklabor.site.
+;
+; forward lookup for tknet02
+;
+@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
+                 100000000 15m 5m 30d 1h 
+               )
+     IN   NS   ns.beta.tklabor.site.beta.tklabor.site.
+     IN   MX   10 mail.beta.tklabor.site.
+
+ns   IN   A    10.174.26.202
+@    IN   A    10.174.26.203
+www  IN   A    10.174.26.203
+mail IN   A    10.174.26.203
+\end{lstlisting}
+\normalsize Starten Sie den Nameserver neu:
+\begin{lstlisting}
+admin1@srv1-0$ sudo service bind9 restart
+\end{lstlisting}
+Testen Sie die Namensauflösung mit folgendem Befehl:
+\begin{lstlisting}
+admin1@srv1:~$ dig mx beta.tklabor.site
+
+; <<>> DiG 9.7.1-P2 <<>> mx beta.tklabor.site
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50085
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2
+
+;; QUESTION SECTION:
+;beta.tklabor.site.	IN	MX
+
+;; ANSWER SECTION:
+beta.tklabor.site.	3600 IN	MX	10 mail.beta.tklabor.site.
+
+;; AUTHORITY SECTION:
+beta.tklabor.site.	1623 IN	NS	ns.beta.tklabor.site.
+
+;; ADDITIONAL SECTION:
+mail.beta.tklabor.site. 3600 IN A	10.174.26.203
+ns.beta.tklabor.site. 1623	IN A	10.174.26.202
+
+;; Query time: 2 msec
+;; SERVER: 10.174.26.126#53(10.174.26.126)
+;; WHEN: Thu Mar 10 10:16:42 2011
+;; MSG SIZE  rcvd: 118
+\end{lstlisting}
+\subsection{E-Mail-Versand}
+Melden Sie sich am Server \textbf{srv2-0} mit dem Benutzernamen \textbf{admin2}
+und dem Passwort \textbf{password2} an. Beispielsweise könnte \textbf{admin2}
+auf
+\\
+\textbf{srv2-0.beta.tklabor.site} eine E-Mail an \\
+\textbf{admin2@beta.tklabor.site} mit folgenden Befehl schicken:
+
+\begin{lstlisting}
+admin2@srv2-0$ echo "Hallo Welt!" | mail admin2@beta.tklabor.site
+\end{lstlisting}
+
+Dieser könnte dann die E-Mail folgendermaßen lesen:
+
+\begin{lstlisting}
+admin2@srv2:~$ mail
+"/var/mail/admin2": 1 message 1 new
+>N   1 admin2             Do Apr 10 10:32  15/789   
+? 1
+Return-Path: <admin2@beta.tklabor.site>
+X-Original-To: admin2@beta.tklabor.site
+Delivered-To: admin2@beta.tklabor.site
+Received: from mail.beta.tklabor.site (unknown [10.174.26.203])
+	by mail.beta.tklabor.site (Postfix) with ESMTP id E4A4221FE3
+	for <admin2@beta.tklabor.site>; Thu, 10 Mar 2011 10:32:47 +0100 (CET)
+Received: by mail.beta.tklabor.site (Postfix, from userid 1000)
+	id 62D6721F41; Thu, 10 Mar 2011 10:32:44 +0100 (CET)
+To: <admin2@beta.tklabor.site>
+X-Mailer: mail (GNU Mailutils 2.1)
+Message-Id: <20110310093244.62D6721F41@mail.beta.tklabor.site>
+Date: Thu, 10 Mar 2011 10:32:44 +0100 (CET)
+From: admin2@beta.tklabor.site (admin2)
+
+Hallo Welt
+? q
+Saved 1 message in /home/admin2/mbox
+Held 0 messages in /var/mail/admin2
+admin2@srv2:~$ 
+\end{lstlisting}
+Damit ist diese Übung abgeschlossen.

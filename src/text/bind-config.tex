@@ -1,10 +1,10 @@
 %------------------------------------------------------------------------------
-\section{DNS-Server mit BIND}
+\section{Konfiguration des DNS-Servers mit BIND}
 %------------------------------------------------------------------------------
 Im Folgenden wird nun der Server \textbf{srv1} als Nameserver konfiguriert. Hier
 wird wieder exemplarisch die Konfiguration von \textbf{srv1-0} wiedergegeben.
 Die für Sie benötigten Werte entnehmen Sie bitte aus der Tabelle im Anhang.
-Melden Sie sich wieder am Server \textbf{srv1} mit den bekannten Zugangsdaten
+Melden Sie sich wieder am Server \textbf{srv1-0} mit den bekannten Zugangsdaten
 an. Danach wird nun die Software \textbf{bind} installiert.
 
 \begin{lstlisting}
@@ -42,12 +42,78 @@ options {
 
 Damit werden Anfragen, die durch den lokalen Nameserver nicht auflösbar sind an den übergeordneten weitergegeben.
 
-Nun erzeugen wir unsere Zonen-Datei, also beispielsweise
-\textbf{/etc/bind/db.beta.tklabor.site}:
+Die Konfiguration von eigenen DNS-Zonen wird zur leichteren Verwaltung und
+Administration in drei Dateien vorgenommen:
+\begin{itemize}
+  \item \textit{named.conf}: Verweis auf die angelegten Zone-files
+  \item \textit{zone.beta.tklabor.site}: Konfiguration der Zone und Verweis auf
+  die Zone-DB
+  \item \textit{db.beta.tklabor.site}: Zone-DB mit den entsprechenden Einträgen
+  für die entsprechende Zone.
+\end{itemize}
+
+Die Konfigurationsdateien werden wie folgt verwiesen:
+
+\begin{nofloat}{figure}
+	\begin{center}
+		\includegraphics[width=0.85\textwidth]{images/dns-files.png}
+	\end{center}
+	\caption{Verweiskette der DNS-Zonenkonfiguration}
+	\label{fig:bind-config-chain}
+\end{nofloat}
+
+Für die Zone \textbf{beta.tklabor.site} wird eine Zonendatei erstellt. Diese
+Datei wird in der globalen Konfigurationsdatei von \textit{bind} wie folgt
+inkludiert:
+
+\begin{lstlisting}
+admin1@srv1-0$ sudo vi /etc/bind/named.conf
+\end{lstlisting}
+
+Diese sollte dann folgendermaßen aussehen:
+
+\begin{scriptsize}
+\begin{lstlisting}
+// This is the primary configuration file for the BIND DNS server named.
+//
+// Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
+// structure of BIND configuration files in Debian, *BEFORE* you customize 
+// this configuration file.
+//
+// If you are just adding zones, please do that in /etc/bind/named.conf.local
+
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";
+include "/etc/bind/zone.beta.tklabor.site";
+\end{lstlisting}
+\end{scriptsize}
+
+Für die Zone wird eine Datei \textbf{/etc/bind/zone.beta.tklabor.site} angelegt.
+
+\begin{lstlisting}
+admin1@srv1$ sudo vi /etc/bind/zone.beta.tklabor.site
+\end{lstlisting}
+
+\begin{scriptsize}
+\begin{lstlisting}
+zone "beta.tklabor.site" IN {
+	type master;
+	file "db.beta.tklabor.site";
+};
+\end{lstlisting}
+\end{scriptsize}
+
+Im letzten Schritt muss eine Datenbank-Datei für die eigentlichen
+Zonen-Einträge erstellt werden:
+
 \begin{lstlisting}
 admin1@srv-1$ sudo vi /etc/bind/db.beta.tklabor.site
 \end{lstlisting}
+
 Diese sollte dann folgenden Inhalt haben:
+
+\begin{scriptsize}
 \begin{lstlisting}
 $TTL 3600
 $ORIGIN beta.tklabor.site.
@@ -55,40 +121,21 @@ $ORIGIN beta.tklabor.site.
 ; forward lookup for beta.tklabor.site
 ;
 @    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
-                 100000000 15m 5m 30d 1h 
+                 201104010153 15m 5m 30d 1h
                )
      IN   NS   ns.beta.tklabor.site.
 
 ns   IN   A    192.168.1.1
 \end{lstlisting}
-\normalsize Diese Zonen-Datei muss nun noch in der Konfiguration inkludiert werden. Also editieren wir nun die Datei \textbf{/etc/bind/named.conf.local}:
-\begin{lstlisting}
-admin1@srv1$ sudo vi /etc/bind/named.conf.local
-\end{lstlisting}
-Diese sollte dann folgendermaßen aussehen:
-\begin{lstlisting}
-//
-// Do any local configuration here
-//
+\end{scriptsize}
 
-// Consider adding the 1918 zones here, if they are not used in your
-// organization
-//include "/etc/bind/zones.rfc1918";
-
-zone "tknet02.informatik.hs-fulda.de" IN {
-  type master;
-  file "/etc/bind/db.tknet02";
-  allow-transfer { none; };
-  notify no;
-};
-\end{lstlisting}
 Jetzt stoppen und starten wir den entsprechenden Dienst:
 \begin{lstlisting}
 admin1@srv1$ sudo service bind9 restart
 \end{lstlisting}
 
 In der Regel sollte es nun möglich sein den Nameservers der Domäne \\ \textbf{tknet02.informatik.hs-fulda.de} zu ermitteln.
-
+\begin{scriptsize}
 \begin{lstlisting}
 admin1@srv1:~$ dig ns tknet02.informatik.hs-fulda.de
 
@@ -112,3 +159,4 @@ ns.tknet02.informatik.hs-fulda.de. 3600	IN A	10.174.26.202
 ;; WHEN: Thu Mar 10 09:43:44 2011
 ;; MSG SIZE  rcvd: 81
 \end{lstlisting}
+\end{scriptsize}

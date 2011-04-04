@@ -461,14 +461,18 @@ sudo aptitude install vim tcpdump nmap
 \end{lstlisting}
 
 \textbf{Hinweis:} Falls bei der Installation der Servername falsch gesetzt
-worden ist, kann dieser nachträglich in den folgenden Dateien geändert werden.
+worden ist, kann dieser nachträglich in den folgenden Dateien geändert werden:
+\begin{lstlisting}
+sudo vi /etc/hostname
+sudo vi /etc/hosts
+\end{lstlisting}
+Nach einem Neustart ist die Konfiguration vollständig übernommen.
 
 %------------------------------------------------------------------------------
 \subsection{Netzwerkkonfiguration}
 %------------------------------------------------------------------------------
 Für den Laboraufbau ist es notwendig, dass die Netzwerkkonfiguration vom
-Benutzer vorgenommen wird. Dazu bearbeiten Sie die Datei /etc/network/interfaces
-wie folgt:
+Benutzer vorgenommen wird:
 \begin{lstlisting}
 admin1@srv1-0$ sudo vi /etc/network/interfaces
 \end{lstlisting}
@@ -517,7 +521,7 @@ Bevor die Installation der Serverdienste erfolgt, testen Sie die Konfiguration:
   \textbf{srv1-0.beta.tklabor.site}.
   \item Layer-3 Konnektivität auf den zentralen Router für den Internetzugang
   \item Namensauflösung ins Internet und Layer-3 Konnektivität ins Internet
-  \item Führen Sie die Tests analog auf srv2 durch.
+  \item Führen Sie die Tests analog auf srv2-0 durch.
 \end{enumerate}
 
 Sind alle Tests erfolgreich, können Sie mit der weiteren Konfiguration

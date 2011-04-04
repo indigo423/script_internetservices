@@ -1,5 +1,5 @@
 %------------------------------------------------------------------------------
-\section{Konfiguration des Webservers}
+\section{Konfiguration des Webservers mit Apache2}
 %------------------------------------------------------------------------------
 
 Melden Sie sich am Server \textbf{srv2-0} mit dem Benutzernamen \textbf{admin2}
@@ -15,7 +15,8 @@ Danach erzeugen wir eine einfache HTML-Datei.
 admin2@srv2-0:~$ sudo vi /var/www/index.html
 \end{lstlisting}
 Natürlich sollten hier auch die Angaben für Ihren Arbeitsplatz gemacht werden. Hier wird wieder exemplarisch 
-der Inhalt für TK02 wiedergegeben:
+der Inhalt für srv2-0 wiedergegeben:
+\begin{scriptsize}
 \begin{lstlisting}
 <html>
   <head>
@@ -26,5 +27,6 @@ der Inhalt für TK02 wiedergegeben:
   </body>
 </html>
 \end{lstlisting}
+\end{scriptsize}
 Öffnen Sie einen Internet-Browser auf Ihrem Arbeitsplatz. Die Webseite sollte bereits über die IP-Adresse erreichbar sein. Geben Sie dazu
 beispielsweise für srv2-0 als URL \textbf{http://192.168.1.3/} an.
