@@ -36,7 +36,7 @@ Damit ist die Konfiguration des Mailservers abgeschlossen, allerdings können ke
 Melden Sie 
 sich wieder am Server \textbf{srv200} mit den bekannten Zugangsdaten an. Editieren Sie die Zonen-Datei \textbf{/etc/bind/db.tknet02}.
 \begin{lstlisting}
-admin1@srv201 sudo vi /etc/bind/db.beta.tklabor.site
+admin1@srv200 sudo vi /etc/bind/db.beta.tklabor.site
 \end{lstlisting}
 Die Datei sollte nun beispielsweise für srv201 folgenden Inhalt aufweisen:
 \begin{scriptsize}
@@ -59,7 +59,7 @@ mail IN   A    10.174.26.201
 \end{scriptsize}
 Starten Sie den Nameserver neu:
 \begin{lstlisting}
-admin1@srv201 sudo service bind9 restart
+admin1@srv200 sudo service bind9 restart
 \end{lstlisting}
 Testen Sie die Namensauflösung mit folgendem Befehl:
 \begin{scriptsize}
