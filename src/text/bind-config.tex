@@ -138,7 +138,7 @@ $ORIGIN beta.tklabor.site.
 ;
 @    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
 				100		; Serial
-				15m		; Refresh
+				1m		; Refresh
 				5m		; Retry
 				30d		; Expire
 				1h )	; Negative caching TTL
@@ -199,9 +199,9 @@ ns.beta.tklabor.site.	3600	IN	A	10.174.26.200
 
 \subsection{Aufgabe}
 \begin{enumerate}
-  \item Welche Eintragstypen (Records) in einem Zonen-file möglich sind.
+  \item Welche Bedeutung haben die Einträge der Zonendatei: SOA, TTL, NS, A,
+  CNAME, PTR, TXT, AAAA
   \item Beschreiben Sie den Inhalt der Datei \textit{db.beta.tklabor.site}
-  (SOA, TTL, NS, A, CNAME, PTR, TXT, AAAA)
   \item Tragen Sie in die Zone \textit{beta.tklabor.site} einen Alias
   für srv200 und srv201 ein.
   \item Erstellen Sie einen \textit{Canonical Name Record} für srv201 mit der
@@ -223,7 +223,7 @@ Prüfen die folgenden Funktionen:
   \item Testen Sie den Reverse Lookup für 10.174.26.200 mit \texttt{nslookup}
   und \texttt{dig}
   \item Testen Sie die oben genannte Namensauflösung mit \texttt{dig +trace}.
-  \item Wie verhält sich \texttt{dig @10.174.26.126 www.fsf.org} im Gegensatz
+  \item Wie verhält sich \texttt{dig @10.174.26.126 www.fsf.org} im Gegensatz\\
   zu \texttt{dig @10.174.26.200 www.fsf.org}?
 \end{enumerate}
 
