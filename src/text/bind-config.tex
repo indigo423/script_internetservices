@@ -303,12 +303,16 @@ admin1@srv201:~$ sudo bind9 restart
 %------------------------------------------------------------------------------
 \subsection{Funktionstest und Aufgaben}
 %------------------------------------------------------------------------------
-Prüfen Sie ob die Zonendatenbank in das Verzeichnis
-\texttt{/var/lib/bind/bak.beta.tklabor.site} kopiert worden ist und ob
-entsprechende Einträge vorhanden sind. Testen Sie die beiden DNS-Server die Zone
-korrekt replizieren.
+Prüfen Sie ob die Zonendatenbank in das Verzeichnis kopiert worden ist und ob
+entsprechende Einträge vorhanden sind.
+
+\begin{lstlisting}
+admin1@srv201:~$ cat /var/lib/bind/bak.beta.tklabor.site
+\end{lstlisting}
 
 \begin{enumerate}
+  \item Testen Sie mit \texttt{dig @10.174.26.201} ob die DNS-Auflösung
+  funktioniert.
   \item Erzeugen Sie einen weiteren \textit{Alias Record} von \textit{ns2} dem
   primären DNS-Server für \textit{srv201}. Erhöhen Sie die \textit{Serial} um
   \texttt{1} und speichern die Änderung ab. Sie können \textit{BIND} dazu
@@ -336,10 +340,10 @@ admin1@srv201:~$ dig @10.174.26.200 beta.tklabor.site AXFR
 \begin{enumerate}
   \item Prüfen Sie von einer beliebigen Domain im Labor die Komplette Zone
   auszulesen.
-  \item Schränken Sie in der Zone \texttt{zone.beta.tklabor.site} mit der Option
-  \texttt{allow-transfer \{ 10.174.26.201; \};} die Abfrage ein.
+  \item Schränken Sie in der Zone \texttt{zone.beta.tklabor.site} mit der
+  Option\\ \texttt{allow-transfer \{ 10.174.26.201; \};} die Abfrage ein.
   \item Prüfen Sie ob ein Zonentransfer auch von Ihrem Slave-Server
   funktioniert. Falls ja verbieten Sie den Zonentransfer von Ihrem Slave-Server
-  komplett mit der Option \texttt{allow-transfer \{ none; \};}.
+  komplett mit der Option\\ \texttt{allow-transfer \{ none; \};}.
   \item Prüfen Sie mit \texttt{dig} ob Ihre Konfiguration funktioniert.
 \end{enumerate}
