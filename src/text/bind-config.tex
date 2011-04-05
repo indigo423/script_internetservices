@@ -1,11 +1,26 @@
 %------------------------------------------------------------------------------
-\section{Konfiguration des DNS-Servers mit BIND}
+\section{DNS-Server}
 %------------------------------------------------------------------------------
-Im Folgenden wird nun der Server \textbf{srv200} als Nameserver konfiguriert.
-Hier wird wieder exemplarisch die Konfiguration von \textbf{srv200} wiedergegeben.
-Die für Sie benötigten Werte entnehmen Sie bitte aus der Tabelle im Anhang.
-Melden Sie sich wieder am Server \textbf{srv200} mit den bekannten Zugangsdaten
-an. Danach wird nun die Software \textbf{bind} installiert.
+Das \textit{Domain Name System} – DNS ist einer der wichtigsten Dienste im
+Internet. DNS wird von vielen Diensten wie bspw. Mail und Web-Diensten
+verwendet. Neben der Aufgabe menschenlesbare Namen in maschinenlesbare
+IP-Adressen aufzulösen, liefert DNS auch wichtige Funktionen um Redundanzen
+herzustellen. DNS "`abstrahiert"' Layer-3 Adressen auf einen Namen, damit ist es
+möglich, dass weltweit erreichbare Web-Dienste von IP-Adressen unabhängig
+werden. DNS ist damit ein wichtiger Bestandteil zur Einführung und
+Implementierung von Internetdiensten in Unternehmensnetzen.
+
+%------------------------------------------------------------------------------
+\subsection{Installation und Konfiguration von BIND}
+%------------------------------------------------------------------------------
+Im Internet wird zum großen Teil der quelloffene DNS-Server
+\textit{BIND}\footnote{Berkeley Internet Name
+Domain: \url{http://www.isc.org/software/bind}} eingesetzt. Im Folgenden wird
+der Server \textit{srv200} als Nameserver konfiguriert. Hier wird wieder
+exemplarisch die Konfiguration von \textit{srv200} wiedergegeben. Die für Sie
+benötigten Werte entnehmen Sie bitte aus der Tabelle im Anhang. Melden Sie sich
+wieder am Server \textit{srv200} mit den bekannten Zugangsdaten an. Danach wird
+nun die Software \textit{BIND} installiert.
 
 \begin{lstlisting}
 admin1@srv200$ sudo aptitude install bind9
@@ -45,7 +60,7 @@ Damit werden Anfragen, die durch den lokalen Nameserver nicht auflösbar sind an
 Die Konfiguration von eigenen DNS-Zonen wird zur leichteren Verwaltung und
 Administration in drei Dateien vorgenommen:
 \begin{itemize}
-  \item \textit{named.conf}: Verweis auf die angelegten Zone-files
+  \item \texttt{named.conf}: Verweis auf die angelegten Zone-files
   \item \textit{zone.beta.tklabor.site}: Konfiguration der Zone und Verweis auf
   die Zone-DB
   \item \textit{db.beta.tklabor.site}: Zone-DB mit den entsprechenden Einträgen
@@ -62,8 +77,8 @@ Die Konfigurationsdateien werden wie folgt verwiesen:
 	\label{fig:bind-config-chain}
 \end{nofloat}
 
-Für die Zone \textbf{beta.tklabor.site} wird eine Zonendatei erstellt. Diese
-Datei wird in der globalen Konfigurationsdatei von \textit{bind} wie folgt
+Für die Zone \textit{beta.tklabor.site} wird eine Zonendatei erstellt. Diese
+Datei wird in der globalen Konfigurationsdatei von \textit{BIND} wie folgt
 inkludiert:
 
 \begin{lstlisting}
@@ -89,7 +104,8 @@ include "/etc/bind/zone.beta.tklabor.site";
 \end{lstlisting}
 \end{scriptsize}
 
-Für die Zone wird eine Datei \textbf{/etc/bind/zone.beta.tklabor.site} angelegt.
+Für die Zone wird eine Datei \texttt{/etc/bind/zone.beta.tklabor.site}
+angelegt.
 
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/zone.beta.tklabor.site
@@ -121,10 +137,12 @@ $ORIGIN beta.tklabor.site.
 ; forward lookup for beta.tklabor.site
 ;
 @    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
-                 20110401 15m 5m 30d 1h
-               )
+				100		; Serial
+				15m		; Refresh
+				5m		; Retry
+				30d		; Expire
+				1h )	; Negative caching TTL
      IN   NS   ns.beta.tklabor.site.
-
 ns   IN   A    10.174.26.200
 \end{lstlisting}
 \end{scriptsize}
@@ -150,7 +168,8 @@ search beta.tklabor.site
 \end{lstlisting}
 \end{scriptsize}
 
-In der Regel sollte es nun möglich sein den Nameserver der Domäne \textbf{beta.tklabor.site} zu ermitteln.
+In der Regel sollte es nun möglich sein den Nameserver der Domäne
+\textit{beta.tklabor.site} zu ermitteln.
 
 \begin{scriptsize}
 \begin{lstlisting}
@@ -180,13 +199,13 @@ ns.beta.tklabor.site.	3600	IN	A	10.174.26.200
 
 \subsection{Aufgabe}
 \begin{enumerate}
-  \item Beschreiben Sie den Inhalt der Datei \textbf{db.beta.tklabor.site}
-  (SOA, TTL, NS, A, CNAME, PTR, TXT, AAAA)
   \item Welche Eintragstypen (Records) in einem Zonen-file möglich sind.
-  \item Tragen Sie in die Zone \textbf{beta.tklabor.site} einen Alias
+  \item Beschreiben Sie den Inhalt der Datei \textit{db.beta.tklabor.site}
+  (SOA, TTL, NS, A, CNAME, PTR, TXT, AAAA)
+  \item Tragen Sie in die Zone \textit{beta.tklabor.site} einen Alias
   für srv200 und srv201 ein.
   \item Erstellen Sie einen \textit{Canonical Name Record} für srv201 mit der
-  Bezeichnung \textbf{www}.
+  Bezeichnung \textit{www}.
   \item Konfigurieren Sie eine Reverse Lookup Zone für 10.174.26.0/24. Eine
   Zonendatenbankdatei als Beispiel finden Sie im Anhang auf Seite
   \pageref{cfg:bind-reverse-lookup}.
@@ -201,9 +220,126 @@ Prüfen die folgenden Funktionen:
   srv201.beta.tklabor.site
   \item Testen Sie die Namensauflösung für www.beta.tklabor.site
   \item Testen Sie die Namensauflösung einer Internetdomain \textit{www.fsf.org}
-  \item Testen Sie den Reverse Lookup für 10.174.26.200 mit \textit{nslookup}
-  und \textit{dig}
-  \item Testen Sie die oben genannte Namensauflösung mit \textit{dig +trace}.
-  \item Wie verhält sich \textbf{dig @10.174.26.126 www.fsf.org} im Gegensatz zu
-  \textbf{dig @10.174.26.200 www.fsf.org}?
+  \item Testen Sie den Reverse Lookup für 10.174.26.200 mit \texttt{nslookup}
+  und \texttt{dig}
+  \item Testen Sie die oben genannte Namensauflösung mit \texttt{dig +trace}.
+  \item Wie verhält sich \texttt{dig @10.174.26.126 www.fsf.org} im Gegensatz
+  zu \texttt{dig @10.174.26.200 www.fsf.org}?
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{DNS Replikation - Zone Transfer}
+%------------------------------------------------------------------------------
+Die Bereitstellung von Internetdiensten basiert zu einem sehr großen Teil auf
+dem DNS-Service. Fällt dieser Dienst aus, kann es vorkommen, dass die Zustellung
+von unternehmenskritischen Mails oder Zugriffe auf Web-Portale nicht mehr
+möglich sind. Aus diesem Grund kann es Sinnvoll sein DNS-Server redundant
+einzurichten. Im folgenden Abschnitt wird auf dem zweiten Server ein DNS-Server
+installiert. Er wird die Zone \textit{beta.tklabor.site} als Backup-DNS Server
+bereitstellen. Der Server \textit{srv201} wird zu diesem Zweck als \textit{Slave
+Nameserver} eingerichtet. Änderungen können zentral auf dem primären DNS-Server
+\textit{srv200} vorgenommen werden. Die Einträge werden dann mittels
+Zonentransfer auf den Slave-Server automatisch übertragen. Auf dem Server soll
+automatisch eine Kopie der Zonendatenbank gespeichert werden. Die Aktualisierung
+der Zone soll jede Minute abgeglichen werden.\\
+\\
+\textbf{\textit{Hinweis}}: In größeren Umgebungen ist der Zonenabgleich sehr
+aufwändig und wird daher in 4 Stunden Intervalen aktualisiert. In der
+Laborumgebung ist ein kurzer Interval zum Test sinnvoll.
+
+\textbf{\textit{WICHTIG!}}: Bitte ändern Sie auf dem primären DNS-Server den
+Parameter \textit{Refresh} der Zone auf \texttt{1m}. 
+
+Für die Einrichtung melden wir uns auf dem Rechner \textit{srv201} als
+\textit{admin2} an und installieren \textit{BIND}.
+
+\begin{lstlisting}
+admin1@srv201:~$ sudo aptitude install bind9
+\end{lstlisting}
+
+Wir richten auf dem Server die Zone \textit{beta.tklabor.site} ein.
+\begin{lstlisting}
+admin1@srv201:~$ sudo vi /etc/bind/named.conf
+\end{lstlisting}
+\begin{scriptsize}
+\begin{lstlisting}
+// This is the primary configuration file for the BIND DNS server named.
+//
+// Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
+// structure of BIND configuration files in Debian, *BEFORE* you customize 
+// this configuration file.
+//
+// If you are just adding zones, please do that in /etc/bind/named.conf.local
+
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.local";
+include "/etc/bind/named.conf.default-zones";
+include "/etc/bind/zone.beta.tklabor.site";
+\end{lstlisting}
+\end{scriptsize}
+
+Im nächsten Schritt erstellen wir die Zonendatei. Die Zone ist hier nicht vom
+Typ \textit{master} sondern wird als \textit{slave} Zone erstellt. Die
+Backupdatei für unsere Zonendatenbank müssen wir nicht angeben, diese wird vom
+primären Server repliziert. Die replizierte Datenbank wollen wir uns ebenfalls
+als Datei sichern und kennzeichnen sie mit dem Prefix \textit{bak}. Als Quelle
+geben den Server \textit{srv200} an.
+
+\begin{scriptsize}
+\begin{lstlisting}
+zone "beta.tklabor.site" IN {
+	type slave;
+	file "/var/lib/bind/bak.beta.tklabor.site";
+	masters { 10.174.26.200; };
+};
+\end{lstlisting}
+\end{scriptsize}
+
+Um die Konfiguration anzuwenden wird \textit{BIND} neu gestartet.
+\begin{lstlisting}
+admin1@srv201:~$ sudo bind9 restart
+\end{lstlisting}
+
+%------------------------------------------------------------------------------
+\subsection{Funktionstest und Aufgaben}
+%------------------------------------------------------------------------------
+Prüfen Sie ob die Zonendatenbank in das Verzeichnis
+\texttt{/var/lib/bind/bak.beta.tklabor.site} kopiert worden ist und ob
+entsprechende Einträge vorhanden sind. Testen Sie die beiden DNS-Server die Zone
+korrekt replizieren.
+
+\begin{enumerate}
+  \item Erzeugen Sie einen weiteren \textit{Alias Record} von \textit{ns2} dem
+  primären DNS-Server für \textit{srv201}. Erhöhen Sie die \textit{Serial} um
+  \texttt{1} und speichern die Änderung ab. Sie können \textit{BIND} dazu
+  veranlassen nur die geänderte Zone neu zu laden. Verwenden Sie dazu das
+  Kommando: \texttt{rndc reload beta.tklabor.site}. Prüfen Sie die Logdatei auf
+  dem Backup-DNS Server mit \texttt{tail -f /var/log/syslog}. Nach einer Minute
+  sollte die Änderung repliziert sein.
+  \item Testen Sie die Namensauflösung mit \texttt{dig @10.174.26.201} für den
+  neuen Eintrag \textit{ns2.beta.tklabor.site}
+  \item Stoppen Sie \textit{BIND} auf dem primären Server \textit{srv200} und
+  prüfen ob die Namensauflösung noch möglich ist. Anhand welcher Konfiguration
+  wird entschieden wie die Namensauflösung durchgeführt wird?
+\end{enumerate}
+
+%------------------------------------------------------------------------------
+\subsection{Einschränken der Replikation}
+%------------------------------------------------------------------------------
+Ob eine Replikation von einem bestimmten DNS-Server funktioniert, kann von der
+Konsole getestet werden:
+
+\begin{lstlisting}
+admin1@srv201:~$ dig @10.174.26.200 beta.tklabor.site AXFR
+\end{lstlisting}
+
+\begin{enumerate}
+  \item Prüfen Sie von einer beliebigen Domain im Labor die Komplette Zone
+  auszulesen.
+  \item Schränken Sie in der Zone \texttt{zone.beta.tklabor.site} mit der Option
+  \texttt{allow-transfer \{ 10.174.26.201; \};} die Abfrage ein.
+  \item Prüfen Sie ob ein Zonentransfer auch von Ihrem Slave-Server
+  funktioniert. Falls ja verbieten Sie den Zonentransfer von Ihrem Slave-Server
+  komplett mit der Option \texttt{allow-transfer \{ none; \};}.
+  \item Prüfen Sie mit \texttt{dig} ob Ihre Konfiguration funktioniert.
 \end{enumerate}

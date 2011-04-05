@@ -2,14 +2,15 @@
 \section{Konfiguration des Mailservers mit Postfix}
 %------------------------------------------------------------------------------
 
-Melden Sie sich am Server \textbf{srv201} mit den bekannten Zugangsdaten an. 
+Melden Sie sich am Server \textit{srv201} mit den bekannten Zugangsdaten an. 
 
 Installieren Sie nun den Postfix-Mailserver:
 \begin{lstlisting}
 admin2@srv201:~$ sudo aptitude install postfix
 \end{lstlisting}
-Im Installationsverlauf wählen Sie \textbf{Internet Site} und als Mailname \textbf{mail}. Danach erfolgt die weitere Konfiguration 
-des Servers. Editieren Sie dazu die Datei \textbf{/etc/postfix/main.cf}.
+Im Installationsverlauf wählen Sie \textbf{Internet Site} und als Mailname
+\textit{mail}. Danach erfolgt die weitere Konfiguration des Servers. Editieren
+Sie dazu die Datei \texttt{/etc/postfix/main.cf}.
 \begin{scriptsize}
 \begin{lstlisting}
 admin2@srv201:~$ sudo vi /etc/postfix/main.cf
@@ -34,7 +35,8 @@ Damit ist die Konfiguration des Mailservers abgeschlossen, allerdings können ke
 \subsection{Nameserver-Einträge für den Mailserver}
 %------------------------------------------------------------------------------
 Melden Sie 
-sich wieder am Server \textbf{srv200} mit den bekannten Zugangsdaten an. Editieren Sie die Zonen-Datei \textbf{/etc/bind/db.tknet02}.
+sich wieder am Server \textit{srv200} mit den bekannten Zugangsdaten an.
+Editieren Sie die Zonen-Datei \texttt{/etc/bind/db.beta.tklabor.site}.
 \begin{lstlisting}
 admin1@srv200 sudo vi /etc/bind/db.beta.tklabor.site
 \end{lstlisting}
@@ -95,12 +97,12 @@ ns.beta.tklabor.site. 1623	IN A	10.174.26.200
 %------------------------------------------------------------------------------
 \subsection{E-Mail-Versand}
 %------------------------------------------------------------------------------
-Melden Sie sich am Server \textbf{srv201} mit dem Benutzernamen \textbf{admin2}
-und dem Passwort \textbf{password2} an. Beispielsweise könnte \textbf{admin2}
+Melden Sie sich am Server \textit{srv201} mit dem Benutzernamen \textit{admin2}
+und dem Passwort \textit{password2} an. Beispielsweise könnte \textit{admin2}
 auf
 \\
-\textbf{srv201.beta.tklabor.site} eine E-Mail an \\
-\textbf{admin2@beta.tklabor.site} mit folgenden Befehl schicken:
+\textit{srv201.beta.tklabor.site} eine E-Mail an \\
+\textit{admin2@beta.tklabor.site} mit folgenden Befehl schicken:
 
 \begin{lstlisting}
 admin2@srv201$ echo "Hallo Welt!" | mail admin2@beta.tklabor.site

@@ -8,7 +8,7 @@ werden. Die Speicherorte und Bezeichnung können Sie aus der Tabelle
 \newline
 \newline
 \textbf{\textit{Hinweis}}: Die Bezeichnung des Servers erfolgt nach dem
-Schema srv\{4.-IP-Octet\}.
+Schema srv\{4.IP-Octet\}.
 
 \scriptsize
 \begin{table}[!h]
@@ -32,8 +32,8 @@ Schema srv\{4.-IP-Octet\}.
 \subsection{Erzeugung der virtuellen Maschinen}
 %------------------------------------------------------------------------------
 Im Folgenden wird die Erzeugung einer virtuellen Maschine mit VMware-Workstation
-exemplarisch für \textbf{srv200} gezeigt. Verfahren Sie für die
-Maschine \textbf{srv201} analog. Öffnen Sie das Programm  \textbf{VMware
+exemplarisch für \textit{srv200} gezeigt. Verfahren Sie für die
+Maschine \textit{srv201} analog. Öffnen Sie das Programm  \textit{VMware
 Workstation} und wählen Sie \textbf{File$\rightarrow$New$\rightarrow$Virtual Machine} im Menü.
 
 \begin{nofloat}{figure}
@@ -69,8 +69,8 @@ Eingaben mit einem Klick auf \textbf{Next}.
 \end{center}
 \end{nofloat}
 
-Geben Sie nun den Namen \textbf{srv200} und als Speicherort den Pfad \\
-\textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv200}
+Geben Sie nun den Namen \textit{srv200} und als Speicherort den Pfad \\
+\texttt{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv200}
 an.
 
 \begin{nofloat}{figure}
@@ -105,7 +105,8 @@ Als nächsten müssen noch einige Einstellungen der virtuellen Maschine bearbeit
 \end{nofloat}
 
 Wählen Sie nun den Eintrag \textbf{CD/DVD} und aktivieren Sie die Option \textbf{Use ISO image file}. Klicken Sie auf \textbf{Browse}
-und wählen Sie die Datei \\ \textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$ubuntu-10.10-server-i386.iso}.
+und wählen Sie die Datei \\
+\texttt{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$ubuntu-10.10-server-i386.iso}.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -122,7 +123,7 @@ Danach wählen Sie den Eintrag \textbf{Network adapter} und aktivieren die Optio
 \end{center}
 \end{nofloat}
 
-Verfahren Sie analog für den Server \textbf{srv201}.
+Verfahren Sie analog für den Server \textit{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Installation von Ubuntu}
@@ -197,7 +198,7 @@ den folgenden Dialogen verschiedene Tasten drücken.
 \end{nofloat}
 
 Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen
-eintragen. Geben Sie hier bitte \textbf{srv200} an.
+eintragen. Geben Sie hier bitte \textit{srv200} an.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -340,7 +341,7 @@ and write changes to disk} beendet.
 \end{center}
 \end{nofloat}
 \newpage
-Jetzt kann ein Benutzer angelegt werden. Für \textbf{srv200} wählen wir den
+Jetzt kann ein Benutzer angelegt werden. Für \textit{srv200} wählen wir den
 Namen \textbf{admin1}.
 
 \begin{nofloat}{figure}
@@ -414,15 +415,15 @@ virtuelle Maschine startet nun neu und bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
-Verfahren Sie analog für den Server \textbf{srv201}.
+Verfahren Sie analog für den Server \textit{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Grundkonfiguration}
 %------------------------------------------------------------------------------
 Nach dem Neustart des virtuellen Servers kann man sich am System mit den zuvor
 angelegten Benutzern angemeldet werden. Um das System zu abzusichern, ist eine
-Anmeldung als Benutzer \textbf{root} nicht möglich. Um Administrationsaufgaben
-durchführen zu können, kann der Benutzer \textbf{admin1} Kommandos unter einem
+Anmeldung als Benutzer \textit{root} nicht möglich. Um Administrationsaufgaben
+durchführen zu können, kann der Benutzer \textit{admin1} Kommandos unter einem
 root-Kontext ausführen.
 
 \begin{lstlisting}
@@ -431,8 +432,8 @@ sudo <command> [command parameter1] [command parameter2]
 
 Bei größeren Änderungen kann es hilfreich sein, eine root-Shell zu öffnen. Alle
 Kommandos in dieser Shell werden unter root-Rechten ausgeführt, das Kommando
-\textbf{sudo} ist dann nicht mehr notwendig. Die root-Shell kann mit 
-\textbf{exit} beendet werden.
+\texttt{sudo} ist dann nicht mehr notwendig. Die root-Shell kann mit 
+\texttt{exit} beendet werden.
 
 \begin{lstlisting}
 sudo -s
@@ -448,8 +449,8 @@ sudo aptitude safe-upgrade
 Im Anschluss sind alle Programme aktualisiert. Für die weitere Einrichtung und
 Fehlerdiagnose sind einige Programme und Tools hilfreich. Anbei eine kleine
 Auswahl die bei der Durchführung des Versuches hilfreich sein können.
-Als alternative Editoren zu \textbf{vi} können beispielsweise \textbf{nano}
-oder \textbf{pico} installiert werden.
+Als alternative Editoren zu \texttt{vi} können beispielsweise \texttt{nano}
+oder \texttt{pico} installiert werden.
 
 \begin{lstlisting}
 sudo aptitude install vim tcpdump nmap
@@ -509,19 +510,22 @@ Starten Sie anschließend das System neu:
 \begin{lstlisting}
 admin1@srv200$ sudo reboot
 \end{lstlisting}
-Verfahren Sie analog für den Server \textbf{srv201}.
+Verfahren Sie analog für den Server \textit{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Funktionstest}
 %------------------------------------------------------------------------------
 Bevor die Installation der Serverdienste erfolgt, testen Sie die Konfiguration:
 \begin{enumerate}
-  \item Layer-3 Konnektivität zwischen den beiden Servern srv200 und srv201
-  \item Lokale Namensauflösung auf srv200 für den hostnamen
-  \textbf{srv200.beta.tklabor.site}.
+  \item Layer-3 Konnektivität zwischen den beiden Servern \textit{srv200} und
+  \textit{srv201}
+  \item Lokale Namensauflösung auf \textit{srv200} für den hostnamen
+  \textit{srv200.beta.tklabor.site}. \textbf{Hinweis}: \texttt{nslookup}
+  ignoriert Einträge in \texttt{/etc/hosts}, verwenden Sie daher das
+  Kommando \texttt{ping}
   \item Layer-3 Konnektivität auf den zentralen Router für den Internetzugang
   \item Namensauflösung ins Internet und Layer-3 Konnektivität ins Internet
-  \item Führen Sie die Tests analog auf srv201 durch.
+  \item Führen Sie die Tests analog auf \textit{srv201} durch.
 \end{enumerate}
 
 Sind alle Tests erfolgreich, können Sie mit der weiteren Konfiguration

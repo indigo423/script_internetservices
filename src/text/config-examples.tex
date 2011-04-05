@@ -4,19 +4,19 @@
 \begin{scriptsize}\label{cfg:bind-reverse-lookup}
 \begin{lstlisting}
 ;
-; BIND reverse data file for local loopback interface
+; BIND reverse data file for 10.174.26/24 network
 ;
-$TTL    604800
-@       IN      SOA     ns.beta.tklabor.site. root.beta.tklabor.site. (
-                201105041100    ; Serial
-                604800          ; Refresh
-                86400           ; Retry
-                2419200         ; Expire
-                604800 )        ; Negative Cache TTL
+$TTL 3600
+@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. (
+                100     ; Serial
+                15m     ; Refresh
+                5m      ; Retry
+                30d     ; Expire
+                1h )    ; Negative caching TTL
 ;
-        IN      NS      ns.beta.tklabor.site.
-200     IN      PTR     ns.beta.tklabor.site.
-200     IN      PTR     srv200.beta.tklabor.site.
-201     IN      PTR     srv201.beta.tklabor.site.
+     IN   NS   ns.beta.tklabor.site.
+200  IN   PTR  ns.beta.tklabor.site.
+200  IN   PTR  srv200.beta.tklabor.site.
+201  IN   PTR  srv201.beta.tklabor.site.
 \end{lstlisting}
 \end{scriptsize}
