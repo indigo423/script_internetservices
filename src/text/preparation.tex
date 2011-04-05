@@ -8,12 +8,7 @@ werden. Die Speicherorte und Bezeichnung können Sie aus der Tabelle
 \newline
 \newline
 \textbf{\textit{Hinweis}}: Die Bezeichnung des Servers erfolgt nach dem
-Schema srv\{Nr\}-\{Subnetz-ID\}. Das Namensschema
-ist in Abbildung \ref{fig:chap-labdocu-netzplan} auf Seite
-\pageref{fig:chap-labdocu-netzplan} dargestellt. Das Beispiel wird anhande des
-Servers srv1 mit der Subnetz-ID 0 beschrieben. Achten Sie bitte darauf, dass Sie
-die Konfiguration anhand des Namensschemas, wie sie in der Dokumentation
-angegeben ist, durchführen.
+Schema srv\{4.-IP-Octet\}.
 
 \scriptsize
 \begin{table}[!h]
@@ -22,10 +17,10 @@ angegeben ist, durchführen.
 		\hline
 		Name & Pfad & Hostname & Benutzername & Passwort \\
 		\hline
-		srv1-0 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv1-0 &
-		srv1-0 & admin1 & password1 \\
-		srv2-0 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv2-0 &
-		srv2-0 & admin2 & password2 \\
+		srv200 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv200 &
+		srv200 & admin1 & password1 \\
+		srv201 & D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv201 &
+		srv201 & admin2 & password2 \\
 		\hline
 	\end{tabular}
 	\caption{Pfade für die Installation und Einrichtung der virtuellen Maschinen}
@@ -37,8 +32,8 @@ angegeben ist, durchführen.
 \subsection{Erzeugung der virtuellen Maschinen}
 %------------------------------------------------------------------------------
 Im Folgenden wird die Erzeugung einer virtuellen Maschine mit VMware-Workstation
-exemplarisch für \textbf{srv1-0} gezeigt. Verfahren Sie für die
-Maschine \textbf{srv2-0} analog. Öffnen Sie das Programm  \textbf{VMware
+exemplarisch für \textbf{srv200} gezeigt. Verfahren Sie für die
+Maschine \textbf{srv201} analog. Öffnen Sie das Programm  \textbf{VMware
 Workstation} und wählen Sie \textbf{File$\rightarrow$New$\rightarrow$Virtual Machine} im Menü.
 
 \begin{nofloat}{figure}
@@ -74,8 +69,8 @@ Eingaben mit einem Klick auf \textbf{Next}.
 \end{center}
 \end{nofloat}
 
-Geben Sie nun den Namen \textbf{srv1-0} und als Speicherort den Pfad \\
-\textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv1-0}
+Geben Sie nun den Namen \textbf{srv200} und als Speicherort den Pfad \\
+\textbf{D:$\backslash$Austausch$\backslash$Internetdienste$\backslash$srv200}
 an.
 
 \begin{nofloat}{figure}
@@ -127,7 +122,7 @@ Danach wählen Sie den Eintrag \textbf{Network adapter} und aktivieren die Optio
 \end{center}
 \end{nofloat}
 
-Verfahren Sie analog für den Server \textbf{srv2-0}.
+Verfahren Sie analog für den Server \textbf{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Installation von Ubuntu}
@@ -202,7 +197,7 @@ den folgenden Dialogen verschiedene Tasten drücken.
 \end{nofloat}
 
 Nach der Hardware- und Netzwerk-Erkennung können Sie nun einen Hostnamen
-eintragen. Geben Sie hier bitte \textbf{srv1-0} an.
+eintragen. Geben Sie hier bitte \textbf{srv200} an.
 
 \begin{nofloat}{figure}
 \begin{center}
@@ -345,7 +340,7 @@ and write changes to disk} beendet.
 \end{center}
 \end{nofloat}
 \newpage
-Jetzt kann ein Benutzer angelegt werden. Für \textbf{srv1-0} wählen wir den
+Jetzt kann ein Benutzer angelegt werden. Für \textbf{srv200} wählen wir den
 Namen \textbf{admin1}.
 
 \begin{nofloat}{figure}
@@ -419,7 +414,7 @@ virtuelle Maschine startet nun neu und bootet das neu installierte System.
 \end{center}
 \end{nofloat}
 
-Verfahren Sie analog für den Server \textbf{srv2-0}.
+Verfahren Sie analog für den Server \textbf{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Grundkonfiguration}
@@ -474,10 +469,11 @@ Nach einem Neustart ist die Konfiguration vollständig übernommen.
 Für den Laboraufbau ist es notwendig, dass die Netzwerkkonfiguration vom
 Benutzer vorgenommen wird:
 \begin{lstlisting}
-admin1@srv1-0$ sudo vi /etc/network/interfaces
+admin1@srv200$ sudo vi /etc/network/interfaces
 \end{lstlisting}
 Sie werden eventuell erneut zur Eingabe des Passwortes aufgefordert. Die Datei
 sollte danach folgenden Inhalt haben:
+\begin{scriptsize}
 \begin{lstlisting}
 # This file describes the network interfaces available on your system
 # and how to activate them. For more information, see interfaces(5).
@@ -489,39 +485,43 @@ iface lo inet loopback
 # The primary network interface
 auto eth0
 iface eth0 inet static
-  address 192.168.1.2
-  netmask 255.255.255.240
-  gateway 192.168.1.1
-  network 192.168.1.0
-  broadcast 192.168.1.15
+  address 10.174.26.200
+  netmask 255.255.255.0
+  gateway 10.174.26.254
+  network 10.174.26.0
+  broadcast 10.174.26.255
 \end{lstlisting}
+\end{scriptsize}
+
 Jetzt sollte noch die Konfiguration der Namensauflösung angepasst werden:
 \begin{lstlisting}
-admin1@srv1-0$ sudo vi /etc/resolv.conf
+admin1@srv200$ sudo vi /etc/resolv.conf
 \end{lstlisting}
 Diese Datei sollte danach folgenden Inhalt haben:
+\begin{scriptsize}
 \begin{lstlisting}
-nameserver 192.168.1.1
+nameserver 10.174.26.126
 domain beta.tklabor.site
 search beta.tklabor.site
 \end{lstlisting}
+\end{scriptsize}
 Starten Sie anschließend das System neu:
 \begin{lstlisting}
-admin1@srv1-0$ sudo reboot
+admin1@srv200$ sudo reboot
 \end{lstlisting}
-Verfahren Sie analog für den Server \textbf{srv2-0}.
+Verfahren Sie analog für den Server \textbf{srv201}.
 
 %------------------------------------------------------------------------------
 \subsection{Funktionstest}
 %------------------------------------------------------------------------------
 Bevor die Installation der Serverdienste erfolgt, testen Sie die Konfiguration:
 \begin{enumerate}
-  \item Layer-3 Konnektivität zwischen den beiden Servern srv1-0 und srv2-0
-  \item Lokale Namensauflösung auf srv1-0 für den hostnamen
-  \textbf{srv1-0.beta.tklabor.site}.
+  \item Layer-3 Konnektivität zwischen den beiden Servern srv200 und srv201
+  \item Lokale Namensauflösung auf srv200 für den hostnamen
+  \textbf{srv200.beta.tklabor.site}.
   \item Layer-3 Konnektivität auf den zentralen Router für den Internetzugang
   \item Namensauflösung ins Internet und Layer-3 Konnektivität ins Internet
-  \item Führen Sie die Tests analog auf srv2-0 durch.
+  \item Führen Sie die Tests analog auf srv201 durch.
 \end{enumerate}
 
 Sind alle Tests erfolgreich, können Sie mit der weiteren Konfiguration

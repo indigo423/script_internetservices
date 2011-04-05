@@ -1,81 +1,64 @@
+%------------------------------------------------------------------------------
 \section{Planung und Netzwerkkonzept}
+%------------------------------------------------------------------------------
 Der Versuchsaufbau wird im TK-Labor durchgeführt. Jede Lerngruppe
-bestehend aus maximal drei Studierenden und erhält ein eigenes privates IPv4
-Netz. Es können bis zu 16 Gruppen gebildet werden. Jede Gruppe kann 13
-Netzwerkgeräte pro Subnetz einrichten. Die erste Adresse wird für den Router ins
-Internet reserviert. Zusätzlich erhält jede Lerngruppe eine Sub-Domain für die
-sie verantwortlich ist. Für diese Sub-Domains sind DNS-Server mit entsprechenden
-Zonen einzurichten. Die Server sollen in den Zonen per DNS erreichbar sein. Die
+bestehend aus maximal drei Studierenden. Es können bis zu 14 Gruppen gebildet
+werden. Jede Gruppe kann 2 Server einrichten. Zusätzlich erhält jede Lerngruppe
+eine Sub-Domain für die sie verantwortlich ist. Für diese Sub-Domains sind DNS-Server mit entsprechenden
+Zonen einzurichten. Die Server sollen später per DNS erreichbar sein. Die
 IP-Adressen und Domains sind dabei wie folgt eingeteilt:
 
 \begin{table}[!h]
   \centering
   \begin{tabular}{l l l l l l}
 	\hline
-	Netz-ID & Router & Srv1 & Srv2 & Broadcast & Sub-Domain \\
+	\textbf{Domain} & \textbf{srv1} & \textbf{srv2} \\
 	\hline
-	\textcolor{red}{192.168.1.0} & .1 & .2 & .3 & \textcolor{red}{.15} &
-	beta.tklabor.site \\ \textcolor{red}{192.168.1.16} & .17 & .18 & .19 &
-	\textcolor{red}{.31} & antares.tklabor.site \\
-	\textcolor{red}{192.168.1.32} & .33 & .34 & .35 & \textcolor{red}{.47} &
-	orion.tklabor.site \\
-	\textcolor{red}{192.168.1.48} & .49 & .50 & .51 & \textcolor{red}{.63} &
-	vogsphere.tklabor.site \\
+	beta.tklabor.site & 10.174.26.200 & 10.174.26.201 \\
+	antares.tklabor.site & 10.174.26.202 & 10.174.26.203 \\
 	\hline
-	\textcolor{red}{192.168.1.64} & .65 & .66 & .67 & \textcolor{red}{.79} &
-	frogstar.tklabor.site \\
-	\textcolor{red}{192.168.1.80} & .81 & .82 & .83 & \textcolor{red}{.95} &
-	epun.tklabor.site \\
-	\textcolor{red}{192.168.1.96} & .97 & .98 & .99 & \textcolor{red}{.111} &
-	earth.tklabor.site \\
-	\textcolor{red}{192.168.1.112} & .113 & .114 & .115 & \textcolor{red}{.127} &
-	earth2.tklabor.site \\
+	orion.tklabor.site & 10.174.26.204 & 10.174.26.205 \\
+	vogsphere.tklabor.site & 10.174.26.206 & 10.174.26.207 \\
 	\hline
-	\textcolor{red}{192.168.1.128} & .129 & .130 & .131 & \textcolor{red}{.143} &
-	fallia.tklabor.site \\
-	\textcolor{red}{192.168.1.144} & .145 & .146 & .147 & \textcolor{red}{.159} &
-	magrathea.tklabor.site \\
-	\textcolor{red}{192.168.1.160} & .161 & .162 & .163 & \textcolor{red}{.175} &
-	lamuella.tklabor.site \\
-	\textcolor{red}{192.168.1.176} & .177 & .178 & .179 & \textcolor{red}{.191} &
-	kria.tklabor.site \\
+	frogstar.tklabor.site & 10.174.26.208 & 10.174.26.209 \\
+	epun.tklabor.site & 10.174.26.210 & 10.174.26.211 \\
 	\hline
-	\textcolor{red}{192.168.1.192} & .193 & .194 & .195 & \textcolor{red}{.207} &
-	zarss.tklabor.site \\
-	\textcolor{red}{192.168.1.208} & .209 & .210 & .211 & \textcolor{red}{.223} &
-	rupert.tklabor.site \\
-	\textcolor{red}{192.168.1.224} & .225 & .226 & .227 & \textcolor{red}{.239} &
-	eadrax.tklabor.site \\
-	\textcolor{red}{192.168.1.240} & .241 & .242 & .243 & \textcolor{red}{.255} &
-	thesun.tklabor.site \\
+	earth.tklabor.site & 10.174.26.212 & 10.174.26.213 \\
+	earth2.tklabor.site & 10.174.26.214 & 10.174.26.215 \\
 	\hline
+	fallia.tklabor.site & 10.174.26.216 & 10.174.26.217 \\
+	magrathea.tklabor.site & 10.174.26.218 & 10.174.26.219 \\
+	\hline
+	lamuella.tklabor.site & 10.174.26.220 & 10.174.26.221 \\
+	kria.tklabor.site & 10.174.26.222 & 10.174.26.223 \\
+	\hline
+	zarss.tklabor.site & 10.174.26.224 & 10.174.26.225 \\
+	rupert.tklabor.site & 10.174.26.226 & 10.174.26.227 \\
 	\end{tabular}
 	\caption{IP-Adressen für die Übungsgruppen}
 	\label{tab:chap-labdocu-ipadressplan}
 \end{table}
 
 Ein zentraler Router stellt den Internetzugang für das Labornetzwerk zur
-verfügung. Die Konfiguration des zentralen Routers soll mit den Studierenden
-gemeinsam erarbeitet werden.
+verfügung.
 
 Beantworten sie die folgenden Fragestellungen anhand der Abbildung
 \ref{fig:chap-labdocu-netzplan} auf Seite \pageref{fig:chap-labdocu-netzplan}.
 
+%------------------------------------------------------------------------------
+\subsection{Aufgabe}
+%------------------------------------------------------------------------------
 \begin{itemize}
-  \item Wie kann eine Kommunikation der Subnetze der Lerngruppen untereinander
-  hergestellt werden?
-  \item Wie kann ein zentraler Internetzugang realisiert werden? 
+  \item Wie kann ein zentraler Internetzugang realisiert werden?
   \item Wie muss eine NAT-Konfiguration aussehen und was passiert hiert?
   \item Wie kann die Funktionsfähigkeit der Konfiguration auf Layer-3 überprüft
   werden?
-  \item Wie muss die Konfiguration der Server als auch des zentralen Routers
-  aussehen, damit DNS-Abfragen über den zentralen Router erfolgen?
   \item Diskutieren Sie Vor- und Nachteile eines zentralen DNS-Zugangs?
   \item Diskutieren Sie Vor- und Nachteile eines Internetzugangs mittels NAT? 
 \end{itemize}
 
 Der Versuchsaufbau findet im Raum C106 statt. Die entsprechende
-Konfigurationen und die Verteilung der Domains und IP-Adressen im Labor ist
-in der Abbildung \ref{fig:chap-labdocu-aufbau} auf Seite
-\pageref{fig:chap-labdocu-aufbau} beschrieben.
+Konfigurationen und die Verteilung der Domains ist in der Abbildung
+\ref{fig:chap-labdocu-aufbau} auf Seite \pageref{fig:chap-labdocu-aufbau}
+beschrieben.
 
