@@ -338,10 +338,10 @@ admin1@srv201:~$ dig @10.174.26.200 beta.tklabor.site AXFR
 \end{lstlisting}
 
 \begin{enumerate}
-  \item Prüfen Sie von einer beliebigen Domain im Labor die Komplette Zone
-  auszulesen.
-  \item Schränken Sie in der Zone \texttt{zone.beta.tklabor.site} mit der
-  Option\\ \texttt{allow-transfer \{ 10.174.26.201; \};} die Abfrage ein.
+  \item Prüfen Sie, ob von einem beliebigen DNS-Server im Labor die komplette
+  Zone auslesen können.
+  \item Schränken Sie auf dem primären DNS-Server Ihrer Zone
+  \texttt{zone.beta.tklabor.site} mit der Option \texttt{allow-transfer \{ 10.174.26.201; \};} die Abfrage ein.
   \item Prüfen Sie ob ein Zonentransfer auch von Ihrem Slave-Server
   funktioniert. Falls ja verbieten Sie den Zonentransfer von Ihrem Slave-Server
   komplett mit der Option\\ \texttt{allow-transfer \{ none; \};}.

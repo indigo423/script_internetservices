@@ -38,4 +38,103 @@ beispielsweise für srv201 als URL\\
 %------------------------------------------------------------------------------
 \subsection{Zugriffsschutz für Web-Inhalte}
 %------------------------------------------------------------------------------
-.htaccess
+Der Zugriff auf Inhalte über HTTP ist standardmäßig für jeden erlaubt. Es kann
+allerings notwendig sein, dass bestimmte Inhalte oder Dateien nur für einen
+begrenzten Benutzerkreis zugänglich sein sollen. Im Folgenden Abschnitt wird auf
+dem Webserver ein privates Verzeichnis angelegt. Der Zugang auf Dateien in
+diesem Verzeichnis sind nur einem Benutzernamen und Passwort möglich.
+
+Auf dem Webserver srv201 anmelden und für das Verzeichnis \texttt{/var/www} die 
+Option \\
+\texttt{AllowOverride None} auf \texttt{AuthConfig} ändern.
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo vi /etc/apache2/sites-available/default
+\end{lstlisting}
+
+Die Datei sollte wie folgend geändert werden:
+
+\begin{scriptsize}
+\begin{lstlisting}
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+
+	DocumentRoot /var/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride AuthConfig
+		Order allow,deny
+		allow from all
+	</Directory>
+.
+.
+.
+\end{lstlisting}
+\end{scriptsize}
+Die Änderungen werden mit einem Neustarten des \textit{Apache2} übernommen.
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo service apache2 restart
+\end{lstlisting}
+
+Als nächstes wird eine Verzeichnisstruktur erstellt. Im Verzeichnis
+\texttt{files} sind Dateien öffentlich zugänglich. Im Verzeichnis
+\texttt{private} soll ein Zugang nur über Benutzername/Passwort möglich sein.
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo mkdir -p /var/www/files/private/
+\end{lstlisting}
+
+Der Zugriff kann auf Verzeichnissebene über die Datei \texttt{.htaccess}
+geregelt werden. Um das Verzeichnis \texttt{private} abzusichern wird die Datei
+\texttt{.htaccess} wie folgt erstellt:
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo vi /var/www/files/private/.htaccess
+\end{lstlisting}
+
+\begin{scriptsize}
+\begin{lstlisting}
+AuthType Basic
+AuthName "This is a private area. Password Required"
+AuthUserFile /etc/apache2/auth/password.file
+require valid-user
+\end{lstlisting}
+\end{scriptsize}
+
+In dieser Datei wird angegeben, dass Benutzern der Zugriff erlaubt wird, wenn
+diese in einer Passwortdatei \texttt{password.file} angegeben sind. Die Datei
+wird erzeugt und ein Benutzer \texttt{wwwuser1} mit dem Kennwort \texttt{user1}
+angelegt.
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo mkdir /etc/apache2/auth
+admin2@srv201:~$ sudo htpasswd -c /etc/apache2/auth/password.file \
+wwwuser1
+\end{lstlisting}
+
+Zum Test wird eine Textdatei im Verzeichnis \texttt{private} angelegt.
+
+\begin{lstlisting}
+admin2@srv201:~$ sudo echo "PRIVAT!" > \
+/var/www/files/private/text.txt
+\end{lstlisting}\
+
+Testen Sie den Zugriff auf die Datei über
+\url{http://10.174.26.201/files} und \url{http://10.174.26.201/files/private}
+
+%------------------------------------------------------------------------------
+\subsection{Aufgaben}
+%------------------------------------------------------------------------------
+\begin{enumerate}
+  \item Beschreiben Sie den Aufbau eines \texttt{HTTP GET} auf die URL
+  \url{http://10.174.26.201/index.html}
+  \item Schauen Sie sich das Verhalten auf den geschützten Bereich im Logfile
+  des Webservers in \texttt{/var/log/apache2/error.log}
+  \item Fügen Sie einen \textit{CNAME Record} für den webserver so ein, dass die
+  Webseite über \url{http://www.beta.tklabor.site} erreichbar wird.
+\end{enumerate}
