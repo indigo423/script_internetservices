@@ -31,29 +31,12 @@ Nach der Installation können wir nun die DNS-Zone konfigurieren:
 admin1@srv200$ sudo vi /etc/bind/named.conf.options
 \end{lstlisting}
 Die Datei sollte folgenden Inhalt aufweisen:
-\begin{scriptsize}
-\begin{lstlisting}
-options {
-    directory "/var/cache/bind";
 
-    // If there is a firewall between you and nameservers you want
-    // to talk to, you may need to fix the firewall to allow multiple
-    // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
-  
-    // If your ISP provided one or more IP addresses for stable 
-    // nameservers, you probably want to use them as forwarders.  
-    // Uncomment the following block, and insert the addresses replacing
-    // the all-0's placeholder.
-
-    forwarders {
-      10.174.26.126;
-    };
-
-    auth-nxdomain no;    # conform to RFC1035
-    listen-on-v6 { any; };
-};
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={BIND9 options mit DNS-Forwarding}
+       \label{lst:named.conf.options},
+       captionpos=b,language=bash]
+{configs/bind/named.conf.options}
 
 Damit werden Anfragen, die durch den lokalen Nameserver nicht auflösbar sind an den übergeordneten weitergegeben.
 
@@ -84,29 +67,14 @@ inkludiert:
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/named.conf
 \end{lstlisting}
-
 Diese sollte dann folgendermaßen aussehen:
-
-\begin{scriptsize}
-\begin{lstlisting}
-// This is the primary configuration file for the BIND DNS server named.
-//
-// Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
-// structure of BIND configuration files in Debian, *BEFORE* you customize 
-// this configuration file.
-//
-// If you are just adding zones, please do that in /etc/bind/named.conf.local
-
-include "/etc/bind/named.conf.options";
-include "/etc/bind/named.conf.local";
-include "/etc/bind/named.conf.default-zones";
-include "/etc/bind/zone.beta.tklabor.site";
-\end{lstlisting}
-\end{scriptsize}
-
+\lstinputlisting
+    [caption={Eingebundene Zone-files in der \textit{named.conf}}
+       \label{lst:named.conf},
+       captionpos=b,language=bash]
+{configs/bind/named.conf}
 Für die Zone wird eine Datei \texttt{/etc/bind/zone.beta.tklabor.site}
 angelegt.
-
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/zone.beta.tklabor.site
 \end{lstlisting}
@@ -129,23 +97,11 @@ admin1@srv200$ sudo vi /etc/bind/db.beta.tklabor.site
 
 Diese sollte dann folgenden Inhalt haben:
 
-\begin{scriptsize}
-\begin{lstlisting}
-$TTL 3600
-$ORIGIN beta.tklabor.site.
-;
-; forward lookup for beta.tklabor.site
-;
-@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
-				100		; Serial
-				1m		; Refresh
-				5m		; Retry
-				30d		; Expire
-				1h )	; Negative caching TTL
-     IN   NS   ns.beta.tklabor.site.
-ns   IN   A    10.174.26.200
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Forward-Lookup Datenbank}
+       \label{lst:forware-zone-db},
+       captionpos=b,language=bash]
+{configs/bind/db.beta.tklabor.site}
 
 Jetzt stoppen und starten wir den entsprechenden Dienst:
 \begin{lstlisting}
@@ -160,18 +116,14 @@ admin1@srv200:~$ sudo vi /etc/resolv.conf
 \end{lstlisting}
 
 Die Datei sollte dann wie folgt aussehen:
-\begin{scriptsize}
-\begin{lstlisting}
-nameserver 10.174.26.200
-domain beta.tklabor.site
-search beta.tklabor.site
-\end{lstlisting}
-\end{scriptsize}
-
+\lstinputlisting
+    [caption={Lokale Namensauflösung in \textit{resolv.conf}}
+       \label{lst:resolv.conf},
+       captionpos=b,language=bash]
+{configs/resolv.conf}
 In der Regel sollte es nun möglich sein den Nameserver der Domäne
 \textit{beta.tklabor.site} zu ermitteln.
 
-\begin{scriptsize}
 \begin{lstlisting}
 root@srv200:/etc/bind# dig ns beta.tklabor.site
 
@@ -195,7 +147,6 @@ ns.beta.tklabor.site.	3600	IN	A	10.174.26.200
 ;; WHEN: Wed Mar 30 18:17:40 2011
 ;; MSG SIZE  rcvd: 68
 \end{lstlisting}
-\end{scriptsize}
 
 \subsection{Aufgabe}
 \begin{enumerate}
@@ -208,7 +159,7 @@ ns.beta.tklabor.site.	3600	IN	A	10.174.26.200
   Bezeichnung \textit{www}.
   \item Konfigurieren Sie eine Reverse Lookup Zone für 10.174.26.0/24. Eine
   Zonendatenbankdatei als Beispiel finden Sie im Anhang auf Seite
-  \pageref{cfg:bind-reverse-lookup}.
+  \pageref{lst:reverse-zone-db}.
  \end{enumerate}
 
 %------------------------------------------------------------------------------
@@ -252,31 +203,18 @@ Parameter \textit{Refresh} der Zone auf \texttt{1m}.
 
 Für die Einrichtung melden wir uns auf dem Rechner \textit{srv201} als
 \textit{admin2} an und installieren \textit{BIND}.
-
 \begin{lstlisting}
 admin1@srv201:~$ sudo aptitude install bind9
 \end{lstlisting}
-
 Wir richten auf dem Server die Zone \textit{beta.tklabor.site} ein.
 \begin{lstlisting}
 admin1@srv201:~$ sudo vi /etc/bind/named.conf
 \end{lstlisting}
-\begin{scriptsize}
-\begin{lstlisting}
-// This is the primary configuration file for the BIND DNS server named.
-//
-// Please read /usr/share/doc/bind9/README.Debian.gz for information on the 
-// structure of BIND configuration files in Debian, *BEFORE* you customize 
-// this configuration file.
-//
-// If you are just adding zones, please do that in /etc/bind/named.conf.local
-
-include "/etc/bind/named.conf.options";
-include "/etc/bind/named.conf.local";
-include "/etc/bind/named.conf.default-zones";
-include "/etc/bind/zone.beta.tklabor.site";
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Eingebundene Zone-files in der \textit{named.conf}}
+       \label{lst:named.conf},
+       captionpos=b,language=bash]
+{configs/bind/named.conf}
 
 Im nächsten Schritt erstellen wir die Zonendatei. Die Zone ist hier nicht vom
 Typ \textit{master} sondern wird als \textit{slave} Zone erstellt. Die
@@ -284,17 +222,11 @@ Backupdatei für unsere Zonendatenbank müssen wir nicht angeben, diese wird vom
 primären Server repliziert. Die replizierte Datenbank wollen wir uns ebenfalls
 als Datei sichern und kennzeichnen sie mit dem Prefix \textit{bak}. Als Quelle
 geben den Server \textit{srv200} an.
-
-\begin{scriptsize}
-\begin{lstlisting}
-zone "beta.tklabor.site" IN {
-	type slave;
-	file "/var/lib/bind/bak.beta.tklabor.site";
-	masters { 10.174.26.200; };
-};
-\end{lstlisting}
-\end{scriptsize}
-
+\lstinputlisting
+    [caption={Backup slave zone für \textit{beta.tklabor.site}}
+       \label{lst:back.beta.tklabor.site},
+       captionpos=b,language=bash]
+{configs/bind/bak.beta.tklabor.site}
 Um die Konfiguration anzuwenden wird \textit{BIND} neu gestartet.
 \begin{lstlisting}
 admin1@srv201:~$ sudo service bind9 restart

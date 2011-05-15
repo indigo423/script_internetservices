@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "This is a private area. Password Required"
+AuthUserFile /etc/apache2/auth/password.file
+require valid-user

@@ -1,6 +1,10 @@
 %------------------------------------------------------------------------------
 \section{Konfigurationsdateien}
 %------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
+\subsection{Bind9}
+%------------------------------------------------------------------------------
 \lstinputlisting
     [caption={Netzwerkkonfiguration}
        \label{lst:interfaces},
@@ -42,3 +46,25 @@
        \label{lst:reverse-zone-db},
        captionpos=b,language=bash]
 {configs/bind/db.26.174.10.in-addr.arpa}
+
+\lstinputlisting
+    [caption={Backup slave zone für \textit{beta.tklabor.site}}
+       \label{lst:back.beta.tklabor.site},
+       captionpos=b,language=bash]
+{configs/bind/bak.beta.tklabor.site}
+
+%------------------------------------------------------------------------------
+\subsection{Apache2}
+%------------------------------------------------------------------------------
+\lstinputlisting
+    [caption={Apache2 Konfiguration}
+       \label{lst:auth-config},
+       captionpos=b,language=bash]
+{configs/apache2/default}
+
+\lstinputlisting
+    [caption={Zugriffsschutz mit \textit{.htaccess}}
+       \label{lst:htaccess},
+       captionpos=b,language=bash]
+{configs/apache2/htaccess}
+

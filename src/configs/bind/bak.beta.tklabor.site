@@ -1,0 +1,6 @@
+// Backup zone for beta.tklabor.site
+zone "beta.tklabor.site" IN {
+    type slave;
+    file "/var/lib/bind/bak.beta.tklabor.site";
+    masters { 10.174.26.200; };
+};
