@@ -1,0 +1,6 @@
+zone "beta.tklabor.site" IN {
+    type master;
+    file "/etc/bind/db.beta.tklabor.site";
+    // Allow zone transfer
+    allow-transfer { 10.174.26.201; };
+};

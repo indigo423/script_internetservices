@@ -1,15 +1,12 @@
-%
-% header.tex
-%
 \documentclass[%
-	pdftex,%			PDFTex verwenden
-	a4paper,%			A4 Papier
-	oneside,%			Einseitig
-	idxtotoc,%			Index ins Verzeichnis einfuegen
-	parskip,%			Europaeischer Satz mit abstand zwischen Absaetzen oder halfparskip
-	headsepline,%      	Linie nach Kopfzeile
-	footsepline,%       Linie vor Fusszeile
-	11pt%               Groessere Schrift, besser lesbar am Bildschrim
+    pdftex,%            PDFTex verwenden
+    a4paper,%           A4 Papier
+    oneside,%           Einseitig
+    idxtotoc,%          Index ins Verzeichnis einfuegen
+    parskip,%           Europaeischer Satz mit abstand zwischen Absaetzen oder halfparskip
+    headsepline,%       Linie nach Kopfzeile
+    footsepline,%       Linie vor Fusszeile
+    11pt%               Groessere Schrift, besser lesbar am Bildschrim
 ]{scrartcl}
 
 \usepackage{a4wide}
@@ -95,6 +92,45 @@
 % Paket um Listings sauber zu formatieren.
 %
 \usepackage[savemem]{listings}
+
+ \definecolor{middlegray}{rgb}{0.5,0.5,0.5}
+ \definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+ \definecolor{orange}{rgb}{0.8,0.3,0.3}
+ \definecolor{yac}{rgb}{0.6,0.6,0.1}
+ \definecolor{darkgreen}{rgb}{0.0,0.5,0.0}
+
+\lstset{ %
+    basicstyle=\ttfamily\scriptsize\mdseries,
+    keywordstyle=\bfseries\ttfamily\color{orange},
+    stringstyle=\color{darkgreen}\ttfamily,
+    commentstyle=\color{blue}\ttfamily,
+    language=bash,                  % the language of the code
+    basicstyle=\footnotesize,       % the size of the fonts that are used for the
+                                    % code
+    numbers=left,                   % where to put the line-numbers
+    numberstyle=\footnotesize,      % the size of the fonts that are used for the
+                                    % line-numbers
+    stepnumber=2,                   % the step between two line-numbers. If it's 1,
+                                    % each line will be numbered
+    numbersep=5pt,                  % how far the line-numbers are from the code
+    backgroundcolor=\color{white},  % choose the background color. You must add
+                                    % \usepackage{color}
+    showspaces=false,               % show spaces adding particular underscores
+    showstringspaces=false,         % underline spaces within strings
+    showtabs=false,                 % show tabs within strings adding particular
+                                    % underscores
+    tabsize=2,                      % sets default tabsize to 2 spaces
+    %captionpos=b,                   % sets the caption-position to bottom
+    breaklines=true,                % sets automatic line breaking
+    breakatwhitespace=false,        % sets if automatic breaks should only happen
+                                    % at whitespace
+    title=\lstname,                 % show the filename of files included with
+                                    % \lstinputlisting;
+                                    % also try caption instead of title
+    escapeinside={\%*}{*)},         % if you want to add a comment within your code
+    %morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
 \lstloadlanguages{TeX}
 
 \usepackage{color}
@@ -107,7 +143,7 @@
 \usepackage{listings}
 \lstset{numbers=left, numberstyle=\tiny, stepnumber=1, showstringspaces=false}
 \lstset{backgroundcolor=\color{nb}}
-\lstset{language=C++}
+\lstset{language=Bash}
 
 
 %
@@ -141,12 +177,11 @@
 \definecolor{LinkColor}{rgb}{0,0,0}
 \usepackage[plainpages=false,hyperfootnotes=false]{hyperref}
 \hypersetup{colorlinks=true,%
-	linkcolor=LinkColor,%
-	citecolor=LinkColor,%
-	filecolor=LinkColor,%
-	menucolor=LinkColor,%
-	pagecolor=LinkColor,%
-	urlcolor=LinkColor}
+    linkcolor=LinkColor,%
+    citecolor=LinkColor,%
+    filecolor=LinkColor,%
+    menucolor=LinkColor,%
+    urlcolor=LinkColor}
 
 %
 % Index erzeugen

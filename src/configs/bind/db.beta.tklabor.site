@@ -1,0 +1,19 @@
+$TTL 3600
+$ORIGIN beta.tklabor.site. 
+; 
+; forward lookup for beta
+; 
+@   IN  SOA ns.beta.tklabor.site. root.beta.tklabor.site. (
+            105         ; Serial
+            1m          ; Refresh
+            5m          ; Retry
+            30d         ; Expire
+            1h          ; Negative caching TTL
+)
+            IN  NS      ns.beta.tklabor.site.
+            IN  MX  10  mail.beta.tklabor.site.
+ns          IN  A       10.174.26.200
+srv200      IN  A       10.174.26.200
+srv201      IN  A       10.174.26.201
+www         IN  CNAME   srv200
+mail        IN  CNAME   srv200

@@ -1,22 +1,44 @@
 %------------------------------------------------------------------------------
-\section{Konfigurationen}
+\section{Konfigurationsdateien}
 %------------------------------------------------------------------------------
-\begin{scriptsize}\label{cfg:bind-reverse-lookup}
-\begin{lstlisting}
-;
-; BIND reverse data file for 10.174.26/24 network
-;
-$TTL 3600
-@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. (
-                100     ; Serial
-                15m     ; Refresh
-                5m      ; Retry
-                30d     ; Expire
-                1h )    ; Negative caching TTL
-;
-     IN   NS   ns.beta.tklabor.site.
-200  IN   PTR  ns.beta.tklabor.site.
-200  IN   PTR  srv200.beta.tklabor.site.
-201  IN   PTR  srv201.beta.tklabor.site.
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Netzwerkkonfiguration}
+       \label{lst:interfaces},
+       captionpos=b,language=bash]
+{configs/interfaces}
+
+\lstinputlisting
+    [caption={BIND9 options mit DNS-Forwarding}
+       \label{lst:named.conf.options},
+       captionpos=b,language=bash]
+{configs/bind/named.conf.options}
+
+\lstinputlisting
+    [caption={Eingebundene Zone-files in der \textit{named.conf}}
+       \label{lst:named.conf},
+       captionpos=b,language=bash]
+{configs/bind/named.conf}
+
+\lstinputlisting
+    [caption={Forward-Lookup zone}
+       \label{lst:forward-zone},
+       captionpos=b,language=bash]
+{configs/bind/zone.beta.tklabor.site}
+
+\lstinputlisting
+    [caption={Reverse-Lookup zone}
+       \label{lst:reverse-zone},
+       captionpos=b,language=bash]
+{configs/bind/zone.26.174.10.in-addr.arpa}
+
+\lstinputlisting
+    [caption={Forward-Lookup Datenbank}
+       \label{lst:forware-zone-db},
+       captionpos=b,language=bash]
+{configs/bind/db.beta.tklabor.site}
+
+\lstinputlisting
+    [caption={Reverse-Lookup Datenbank}
+       \label{lst:reverse-zone-db},
+       captionpos=b,language=bash]
+{configs/bind/db.26.174.10.in-addr.arpa}

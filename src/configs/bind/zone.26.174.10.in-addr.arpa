@@ -1,0 +1,6 @@
+zone "26.174.10.in-addr.arpa" IN {
+    type master;
+    file "/etc/bind/db.26.174.10.in-addr.arpa";
+    // Allow zone transfer
+    allow-transfer { 10.174.26.201; };
+};
