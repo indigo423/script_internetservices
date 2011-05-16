@@ -12,25 +12,17 @@ Installieren Sie nun den Apache-Webserver:
 \begin{lstlisting}
 admin2@srv201:~$ sudo aptitude install apache2
 \end{lstlisting}
-
 Danach erzeugen wir eine einfache HTML-Datei.
 \begin{lstlisting}
 admin2@srv201:~$ sudo vi /var/www/index.html
 \end{lstlisting}
 Natürlich sollten hier auch die Angaben für Ihren Arbeitsplatz gemacht werden. Hier wird wieder exemplarisch 
 der Inhalt für srv201 wiedergegeben:
-\begin{scriptsize}
-\begin{lstlisting}
-<html>
-  <head>
-    <title>beta.tklabor.site</title>
-  </head>  
-  <body>
-    <h1>beta.tklabor.site</h1>
-  </body>
-</html>
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Einfache HTML Seite in \textit{/var/www/index.html}}
+       \label{lst:index.html},
+       captionpos=b,language=HTML]
+{configs/apache2/index.html}
 Öffnen Sie einen Internet-Browser auf Ihrem Arbeitsplatz. Die Webseite sollte bereits über die IP-Adresse erreichbar sein. Geben Sie dazu
 beispielsweise für srv201 als URL\\
 \url{http://10.174.26.201/} an.
@@ -47,83 +39,49 @@ diesem Verzeichnis sind nur einem Benutzernamen und Passwort möglich.
 Auf dem Webserver srv201 anmelden und für das Verzeichnis \texttt{/var/www} die 
 Option \\
 \texttt{AllowOverride None} auf \texttt{AuthConfig} ändern.
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo vi /etc/apache2/sites-available/default
 \end{lstlisting}
-
 Die Datei sollte wie folgend geändert werden:
-
-\begin{scriptsize}
-\begin{lstlisting}
-<VirtualHost *:80>
-	ServerAdmin webmaster@localhost
-
-	DocumentRoot /var/www
-	<Directory />
-		Options FollowSymLinks
-		AllowOverride None
-	</Directory>
-	<Directory /var/www/>
-		Options Indexes FollowSymLinks MultiViews
-		AllowOverride AuthConfig
-		Order allow,deny
-		allow from all
-	</Directory>
-.
-.
-.
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Apache2 Konfiguration in
+    \textit{/etc/apache2/sites-available/default}} \label{lst:default},
+       captionpos=b,language=bash, , linerange=9-14]
+{configs/apache2/default}
 Die Änderungen werden mit einem Neustarten des \textit{Apache2} übernommen.
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo service apache2 restart
 \end{lstlisting}
-
 Als nächstes wird eine Verzeichnisstruktur erstellt. Im Verzeichnis
 \texttt{files} sind Dateien öffentlich zugänglich. Im Verzeichnis
 \texttt{private} soll ein Zugang nur über Benutzername/Passwort möglich sein.
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo mkdir -p /var/www/files/private/
 \end{lstlisting}
-
 Der Zugriff kann auf Verzeichnissebene über die Datei \texttt{.htaccess}
 geregelt werden. Um das Verzeichnis \texttt{private} abzusichern wird die Datei
 \texttt{.htaccess} wie folgt erstellt:
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo vi /var/www/files/private/.htaccess
 \end{lstlisting}
-
-\begin{scriptsize}
-\begin{lstlisting}
-AuthType Basic
-AuthName "This is a private area. Password Required"
-AuthUserFile /etc/apache2/auth/password.file
-require valid-user
-\end{lstlisting}
-\end{scriptsize}
-
+\lstinputlisting
+    [caption={Verzeichnisschut mit \textit{.htaccess}}
+    \label{lst:htaccess},
+    captionpos=b,language=bash] {configs/apache2/htaccess}
 In dieser Datei wird angegeben, dass Benutzern der Zugriff erlaubt wird, wenn
 diese in einer Passwortdatei \texttt{password.file} angegeben sind. Die Datei
 wird erzeugt und ein Benutzer \texttt{wwwuser1} mit dem Kennwort \texttt{user1}
 angelegt.
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo mkdir /etc/apache2/auth
 admin2@srv201:~$ sudo htpasswd -c /etc/apache2/auth/password.file \
 wwwuser1
 \end{lstlisting}
-
 Zum Test wird eine Textdatei im Verzeichnis \texttt{private} angelegt.
-
 \begin{lstlisting}
 admin2@srv201:~$ sudo echo "PRIVAT" > \
 /var/www/files/private/text.txt
 \end{lstlisting}\
-
 Testen Sie den Zugriff auf die Datei über
 \url{http://10.174.26.201/files} und \url{http://10.174.26.201/files/private}
 

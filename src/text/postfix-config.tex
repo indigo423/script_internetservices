@@ -11,20 +11,15 @@ admin2@srv201:~$ sudo aptitude install postfix
 Im Installationsverlauf wählen Sie \textbf{Internet Site} und als Mailname
 \textit{mail}. Danach erfolgt die weitere Konfiguration des Servers. Editieren
 Sie dazu die Datei \texttt{/etc/postfix/main.cf}.
-\begin{scriptsize}
 \begin{lstlisting}
 admin2@srv201:~$ sudo vi /etc/postfix/main.cf
 \end{lstlisting}
 Folgende Einträge sollten beispielsweise für srv201 wie folgt angepasst werden:
-\begin{lstlisting}
-myhostname = mail.beta.tklabor.site
-mydestination = beta.tklabor.site, 
-                mail.beta.tklabor.site, 
-                localhost.beta.tklabor.site, localhost
-mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.174.26.0/24
-\end{lstlisting}
-\end{scriptsize}
-
+\lstinputlisting
+    [caption={Konfigurationsdatei für Postfix}
+       \label{lst:postifx-main},
+       captionpos=b,language=bash, linerange=27-35]
+{configs/postfix/main.cf}
 Danach wird der Dienst neu gestartet.
 \begin{lstlisting}
 admin1@srv201 sudo service postfix restart
@@ -41,31 +36,16 @@ Editieren Sie die Zonen-Datei \texttt{/etc/bind/db.beta.tklabor.site}.
 admin1@srv200 sudo vi /etc/bind/db.beta.tklabor.site
 \end{lstlisting}
 Die Datei sollte nun beispielsweise für srv201 folgenden Inhalt aufweisen:
-\begin{scriptsize}
-\begin{lstlisting}
-$TTL 3600
-$ORIGIN beta.tklabor.site.
-;
-; forward lookup for beta.tklabor.site
-;
-@    IN   SOA  ns.beta.tklabor.site. root.beta.tklabor.site. ( 
-				100		; Serial
-				1m		; Refresh
-				5m		; Retry
-				30d		; Expire
-				1h )	; Negative caching TTL
-     IN   NS   ns.beta.tklabor.site.
-ns   IN   A    10.174.26.200
-@    IN   A    10.174.26.200
-mail IN   A    10.174.26.201
-\end{lstlisting}
-\end{scriptsize}
+\lstinputlisting
+    [caption={Forward-Lookup Datenbank}
+       \label{lst:forware-zone-db},
+       captionpos=b,language=bash]
+{configs/bind/db.beta.tklabor.site}
 Starten Sie den Nameserver neu:
 \begin{lstlisting}
 admin1@srv200 sudo service bind9 restart
 \end{lstlisting}
 Testen Sie die Namensauflösung mit folgendem Befehl:
-\begin{scriptsize}
 \begin{lstlisting}
 admin1@srv200:~$ dig mx beta.tklabor.site
 
@@ -93,7 +73,6 @@ ns.beta.tklabor.site. 1623	IN A	10.174.26.200
 ;; WHEN: Thu Mar 10 10:16:42 2011
 ;; MSG SIZE  rcvd: 118
 \end{lstlisting}
-\end{scriptsize}
 
 %------------------------------------------------------------------------------
 \subsection{E-Mail-Versand}
@@ -110,7 +89,6 @@ admin2@srv201$ echo "Hallo Welt!" | mail admin2@beta.tklabor.site
 \end{lstlisting}
 
 Dieser könnte dann die E-Mail folgendermaßen lesen:
-\begin{scriptsize}
 \begin{lstlisting}
 admin2@srv201:~$ mail
 "/var/mail/admin2": 1 message 1 new
@@ -136,6 +114,5 @@ Saved 1 message in /home/admin2/mbox
 Held 0 messages in /var/mail/admin2
 admin2@srv201:~$ 
 \end{lstlisting}
-\end{scriptsize}
 
 Damit ist diese Übung abgeschlossen.

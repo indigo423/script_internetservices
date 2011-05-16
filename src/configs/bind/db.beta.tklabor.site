@@ -13,7 +13,8 @@ $ORIGIN beta.tklabor.site.
             IN  NS      ns.beta.tklabor.site.
             IN  MX  10  mail.beta.tklabor.site.
 ns          IN  A       10.174.26.200
+@           IN  A       10.174.26.200
 srv200      IN  A       10.174.26.200
 srv201      IN  A       10.174.26.201
+mail        IN  A       10.174.26.201
 www         IN  CNAME   srv200
-mail        IN  CNAME   srv200

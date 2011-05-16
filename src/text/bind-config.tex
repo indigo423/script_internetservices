@@ -21,23 +21,19 @@ exemplarisch die Konfiguration von \textit{srv200} wiedergegeben. Die für Sie
 benötigten Werte entnehmen Sie bitte aus der Tabelle im Anhang. Melden Sie sich
 wieder am Server \textit{srv200} mit den bekannten Zugangsdaten an. Danach wird
 nun die Software \textit{BIND} installiert.
-
 \begin{lstlisting}
 admin1@srv200$ sudo aptitude install bind9
 \end{lstlisting}
-
 Nach der Installation können wir nun die DNS-Zone konfigurieren:
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/named.conf.options
 \end{lstlisting}
 Die Datei sollte folgenden Inhalt aufweisen:
-
 \lstinputlisting
     [caption={BIND9 options mit DNS-Forwarding}
        \label{lst:named.conf.options},
        captionpos=b,language=bash]
 {configs/bind/named.conf.options}
-
 Damit werden Anfragen, die durch den lokalen Nameserver nicht auflösbar sind an den übergeordneten weitergegeben.
 
 Die Konfiguration von eigenen DNS-Zonen wird zur leichteren Verwaltung und
@@ -49,9 +45,7 @@ Administration in drei Dateien vorgenommen:
   \item \textit{db.beta.tklabor.site}: Zone-DB mit den entsprechenden Einträgen
   für die entsprechende Zone.
 \end{itemize}
-
 Die Konfigurationsdateien werden wie folgt verwiesen:
-
 \begin{nofloat}{figure}
 	\begin{center}
 		\includegraphics[width=0.85\textwidth]{images/dns-files.png}
@@ -59,11 +53,9 @@ Die Konfigurationsdateien werden wie folgt verwiesen:
 	\caption{Verweiskette der DNS-Zonenkonfiguration}
 	\label{fig:bind-config-chain}
 \end{nofloat}
-
 Für die Zone \textit{beta.tklabor.site} wird eine Zonendatei erstellt. Diese
 Datei wird in der globalen Konfigurationsdatei von \textit{BIND} wie folgt
 inkludiert:
-
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/named.conf
 \end{lstlisting}
@@ -78,43 +70,33 @@ angelegt.
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/zone.beta.tklabor.site
 \end{lstlisting}
-
-\begin{scriptsize}
 \begin{lstlisting}
 zone "beta.tklabor.site" IN {
 	type master;
 	file "/etc/bind/db.beta.tklabor.site";
 };
 \end{lstlisting}
-\end{scriptsize}
-
 Im letzten Schritt muss eine Datenbank-Datei für die eigentlichen
 Zonen-Einträge erstellt werden:
-
 \begin{lstlisting}
 admin1@srv200$ sudo vi /etc/bind/db.beta.tklabor.site
 \end{lstlisting}
-
 Diese sollte dann folgenden Inhalt haben:
-
 \lstinputlisting
     [caption={Forward-Lookup Datenbank}
        \label{lst:forware-zone-db},
        captionpos=b,language=bash]
 {configs/bind/db.beta.tklabor.site}
-
 Jetzt stoppen und starten wir den entsprechenden Dienst:
 \begin{lstlisting}
 admin1@srv200$ sudo service bind9 restart
 \end{lstlisting}
-
 Um die Namensauflösung jetzt über den eigenen DNS-Server durchzuführen muss auf
 beiden Servern der DNS-Server geändert werden. Die Abfragen werden nun nicht
 mehr auf den 10.174.26.126 durchgeführt.
 \begin{lstlisting}
 admin1@srv200:~$ sudo vi /etc/resolv.conf
 \end{lstlisting}
-
 Die Datei sollte dann wie folgt aussehen:
 \lstinputlisting
     [caption={Lokale Namensauflösung in \textit{resolv.conf}}
@@ -123,7 +105,6 @@ Die Datei sollte dann wie folgt aussehen:
 {configs/resolv.conf}
 In der Regel sollte es nun möglich sein den Nameserver der Domäne
 \textit{beta.tklabor.site} zu ermitteln.
-
 \begin{lstlisting}
 root@srv200:/etc/bind# dig ns beta.tklabor.site
 
@@ -215,7 +196,6 @@ admin1@srv201:~$ sudo vi /etc/bind/named.conf
        \label{lst:named.conf},
        captionpos=b,language=bash]
 {configs/bind/named.conf}
-
 Im nächsten Schritt erstellen wir die Zonendatei. Die Zone ist hier nicht vom
 Typ \textit{master} sondern wird als \textit{slave} Zone erstellt. Die
 Backupdatei für unsere Zonendatenbank müssen wir nicht angeben, diese wird vom
@@ -237,11 +217,9 @@ admin1@srv201:~$ sudo service bind9 restart
 %------------------------------------------------------------------------------
 Prüfen Sie ob die Zonendatenbank in das Verzeichnis kopiert worden ist und ob
 entsprechende Einträge vorhanden sind.
-
 \begin{lstlisting}
 admin1@srv201:~$ cat /var/lib/bind/bak.beta.tklabor.site
 \end{lstlisting}
-
 \begin{enumerate}
   \item Testen Sie mit \texttt{dig @10.174.26.201} ob die DNS-Auflösung
   funktioniert.
@@ -264,11 +242,9 @@ admin1@srv201:~$ cat /var/lib/bind/bak.beta.tklabor.site
 %------------------------------------------------------------------------------
 Ob eine Replikation von einem bestimmten DNS-Server funktioniert, kann von der
 Konsole getestet werden:
-
 \begin{lstlisting}
 admin1@srv201:~$ dig @10.174.26.200 beta.tklabor.site AXFR
 \end{lstlisting}
-
 \begin{enumerate}
   \item Prüfen Sie, ob von einem beliebigen DNS-Server im Labor die komplette
   Zone auslesen können.

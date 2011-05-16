@@ -3,53 +3,62 @@
 %------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------
-\subsection{Bind9}
+\subsection{Grundkonfiguration}
 %------------------------------------------------------------------------------
 \lstinputlisting
     [caption={Netzwerkkonfiguration}
-       \label{lst:interfaces},
+       \label{lst:interfaces-cfg},
        captionpos=b,language=bash]
 {configs/interfaces}
 
 \lstinputlisting
+    [caption={Linux Namensauflösung}
+       \label{lst:resolv.conf-cfg},
+       captionpos=b,language=bash]
+{configs/resolv.conf}
+
+%------------------------------------------------------------------------------
+\subsection{Bind9}
+%------------------------------------------------------------------------------
+\lstinputlisting
     [caption={BIND9 options mit DNS-Forwarding}
-       \label{lst:named.conf.options},
+       \label{lst:named.conf.options-cfg},
        captionpos=b,language=bash]
 {configs/bind/named.conf.options}
 
 \lstinputlisting
     [caption={Eingebundene Zone-files in der \textit{named.conf}}
-       \label{lst:named.conf},
+       \label{lst:named.conf-cfg},
        captionpos=b,language=bash]
 {configs/bind/named.conf}
 
 \lstinputlisting
     [caption={Forward-Lookup zone}
-       \label{lst:forward-zone},
+       \label{lst:forward-zone-cfg},
        captionpos=b,language=bash]
 {configs/bind/zone.beta.tklabor.site}
 
 \lstinputlisting
     [caption={Reverse-Lookup zone}
-       \label{lst:reverse-zone},
+       \label{lst:reverse-zone-cfg},
        captionpos=b,language=bash]
 {configs/bind/zone.26.174.10.in-addr.arpa}
 
 \lstinputlisting
     [caption={Forward-Lookup Datenbank}
-       \label{lst:forware-zone-db},
+       \label{lst:forware-zone-db-cfg},
        captionpos=b,language=bash]
 {configs/bind/db.beta.tklabor.site}
 
 \lstinputlisting
     [caption={Reverse-Lookup Datenbank}
-       \label{lst:reverse-zone-db},
+       \label{lst:reverse-zone-db-cfg},
        captionpos=b,language=bash]
 {configs/bind/db.26.174.10.in-addr.arpa}
 
 \lstinputlisting
     [caption={Backup slave zone für \textit{beta.tklabor.site}}
-       \label{lst:back.beta.tklabor.site},
+       \label{lst:back.beta.tklabor.site-cfg},
        captionpos=b,language=bash]
 {configs/bind/bak.beta.tklabor.site}
 
@@ -58,13 +67,27 @@
 %------------------------------------------------------------------------------
 \lstinputlisting
     [caption={Apache2 Konfiguration}
-       \label{lst:auth-config},
+       \label{lst:auth-config-cfg},
        captionpos=b,language=bash]
 {configs/apache2/default}
 
 \lstinputlisting
     [caption={Zugriffsschutz mit \textit{.htaccess}}
-       \label{lst:htaccess},
+       \label{lst:htaccess-cfg},
        captionpos=b,language=bash]
 {configs/apache2/htaccess}
 
+\lstinputlisting
+    [caption={Einfache HTML Seite in \textit{/var/www/index.html}}
+       \label{lst:index.html-cfg},
+       captionpos=b,language=HTML]
+{configs/apache2/index.html}
+
+%------------------------------------------------------------------------------
+\subsection{Postfix}
+%------------------------------------------------------------------------------
+\lstinputlisting
+    [caption={Konfigurationsdatei für Postfix}
+       \label{lst:postifx-main-cfg},
+       captionpos=b,language=bash]
+{configs/postfix/main.cf}
